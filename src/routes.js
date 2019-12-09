@@ -1,6 +1,14 @@
-//route names
+import React from 'react'
+import { Switch, Route} from 'react-router-dom'
 
-// / - categories
+//! import components here
+import Categories from './components/Categories/Categories'
+
+export default (
+    <Switch>
+        <Route exact path ='/' component={Categories} />
+    </Switch>
+)
 
 // /category/:id - Topics
 
