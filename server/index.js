@@ -33,7 +33,8 @@ app.use(passport.session());
 
 app.get(
   "/api/login",
-  passport.authenticate("auth0", {  // ------------------
+  passport.authenticate("auth0", {
+    // ------------------
     failureRedirect: `http://localhost:3000/`
   }),
   (req, res) => {
@@ -54,7 +55,6 @@ passport.use(
         .get("db")
         .auth_user(profile.id)
         .then(user => {
-          console.log(user)
           if (!user[0]) {
             app
               .get("db")
@@ -101,9 +101,14 @@ app.get(`/api/logout`, (req, res) => {
   );
 });
 
-
 //endpoints
 app.get("/api/login");
+app.get("/api/user", (req, res) => {
+  console.log(req.session);
+  if (req.user) {
+    res.status(200).send(req.user);
+  } else res.sendStatus(500);
+});
 
 //listen
 const port = SERVER_PORT || 3069;
