@@ -6,6 +6,7 @@ import amber from "@material-ui/core/colors/amber";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 
 import Header from "./components/Header/Header";
+import AddPreview from './components/Footer/AddPreview'
 
 const theme = createMuiTheme({
   palette: {
@@ -20,6 +21,7 @@ function App() {
       <div className="App">
         <Header />
         {routes}
+        <AddPreview />
       </div>
     </ThemeProvider>
   );
