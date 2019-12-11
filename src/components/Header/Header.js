@@ -105,9 +105,15 @@ const Header = props => {
               <MenuIcon />
             </IconButton>
             <Button
-              classes={{ root: classes.button }}
               variant="contained"
+              color="secondary"
               onClick={userLogin}
+              style={{
+                position: "absolute",
+                zIndex: 1,
+                right: 0,
+                marginRight: "5vw"
+              }}
             >
               Login
             </Button>

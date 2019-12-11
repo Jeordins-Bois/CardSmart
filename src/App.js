@@ -5,6 +5,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { teal, blueGrey, grey} from "@material-ui/core/colors";
 
 import Header from "./components/Header/Header";
+import AddPreview from './components/Footer/AddPreview'
 
 const theme = createMuiTheme({
   palette: {
@@ -21,6 +22,7 @@ function App() {
       <div className="App">
         <Header />
         {routes}
+        <AddPreview />
       </div>
     </ThemeProvider>
   );
