@@ -17,7 +17,8 @@ import "./Header.css";
 const drawerWidth = 275;
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex"
+    display: "flex",
+    backgroundColor: theme.palette.primary[700]
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "#607d8b"
+    backgroundColor: theme.palette.primary[700]
   },
   drawerHeader: {
     display: "flex",
@@ -55,6 +56,9 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen
     }),
     marginLeft: 0
+  },
+  button: {
+    backgroundColor: theme.palette.secondary["A100"]
   }
 }));
 //End of materialui stuff
@@ -86,7 +90,11 @@ const Header = props => {
   } else {
     return (
       <>
-        <AppBar position="static" color="primary">
+        <AppBar
+          position="static"
+          color="primary"
+          classes={{ root: classes.root }}
+        >
           <Toolbar>
             <IconButton
               color="inherit"

@@ -1,5 +1,5 @@
 .topics-container {
-  background-color: #939393;
+  background-color: #f5f5f5;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -36,16 +36,12 @@
   position: relative;
 }
 
-.topic-box-text {
-  color: #374656;
-}
-
 .icon {
-  background-color: #ffc400;
+  background-color: #764865;
   height: 10vh;
   width: 10vh;
   border-radius: 50%;
-  border: 1px solid #939393;
+  border: 1px solid #787c80;
   position: absolute;
   left: -20px;
   top: -20px;

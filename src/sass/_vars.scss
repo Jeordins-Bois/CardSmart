@@ -1,6 +1,7 @@
-$main-color: #939393;
-$accent-color: #ffc400;
+$main-color: #787c80;
+$accent-color: #764865;
 $text-color: #374656;
+$background-color: #f5f5f5;
 
 @mixin flex($direction, $content, $items) {
   display: flex;

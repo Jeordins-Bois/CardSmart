@@ -29,9 +29,10 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    backgroundColor: "#607d8b"
+    backgroundColor: "white"
   },
   headerRoot: {
+    borderTopRightRadius: "4px",
     width: "100%",
     margin: 0,
     padding: 0
@@ -64,7 +65,7 @@ const Category = props => {
           raised={true}
         >
           <CardHeader
-            classes={{ root: classes.headerRoot, avatar: classes.avatar }}
+            classes={{ root: classes.headerRoot }}
             className="category-box-text"
             title={props.category.title}
           />
