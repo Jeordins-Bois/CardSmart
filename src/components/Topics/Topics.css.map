@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,iBAAiB,CAAC;EAChB,gBAAgB,ECJL,OAAO;EAKpB,OAAO,EAAE,IAAI;EACb,cAAc,EDDE,MAAM;ECEtB,eAAe,EDFS,MAAM;ECG9B,WAAW,EDHqB,MAAM;EACpC,OAAO,EAAE,gBAAgB;CAC1B",
+    "sources": [
+        "Topics.scss",
+        "../../sass/_vars.scss"
+    ],
+    "names": [],
+    "file": "Topics.css"
+}
