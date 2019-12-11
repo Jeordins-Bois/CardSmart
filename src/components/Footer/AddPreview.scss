@@ -1,0 +1,10 @@
+.add-button {
+    background-color: $accent-color;
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    border: 1px solid $main-color;
+    position: absolute;
+    left: -20px;
+    top: -20px;
+  }

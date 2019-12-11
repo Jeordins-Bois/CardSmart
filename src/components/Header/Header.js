@@ -13,7 +13,6 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import "./Header.css";
 
-
 //this is all material ui stuff i couldn't get it to work in another file and then import it so it's here
 const drawerWidth = 275;
 const useStyles = makeStyles(theme => ({
@@ -97,7 +96,17 @@ const Header = props => {
             >
               <MenuIcon />
             </IconButton>
-            <Button variant="contained" color="secondary" onClick={userLogin}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={userLogin}
+              style={{
+                position: "absolute",
+                zIndex: 1,
+                right: 0,
+                marginRight: "5vw"
+              }}
+            >
               Login
             </Button>
           </Toolbar>
