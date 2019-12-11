@@ -15,4 +15,38 @@
           align-items: center;
   padding: 10vw 10vw 0 10vw;
 }
+
+.topic-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 15vh;
+  width: 100%;
+  position: relative;
+}
+
+.topic-box-text {
+  color: #374656;
+}
+
+.icon {
+  background-color: #ffc400;
+  height: 10vh;
+  width: 10vh;
+  border-radius: 50%;
+  border: 1px solid #939393;
+  position: absolute;
+  left: -20px;
+  top: -20px;
+}
 /*# sourceMappingURL=Topics.css.map */

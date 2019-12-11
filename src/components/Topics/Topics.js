@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Topic from "./Topic";
 
-const Topics = (props) => {
+const Topics = props => {
   const [state, setState] = useState({
     topics: [
       { name: "Medieval History", id: 1 },

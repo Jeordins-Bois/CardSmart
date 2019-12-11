@@ -21,12 +21,15 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    backgroundColor: "#607d8b"
+    backgroundColor: "#607d8b",
+    overflow: "visible"
   },
   headerRoot: {
     width: "100%",
     margin: 0,
-    padding: 0
+    padding: 0,
+    height: "20%",
+    backgroundColor: "#ffc400"
   },
   avatar: {
     position: "relative",
@@ -43,24 +46,35 @@ const Topic = props => {
   return (
     //   Link goes to "Topics" page of corresponding category
 
-    <Container maxWidth="md">
+    <Container maxWidth="md" style={{ marginBottom: "5vh" }}>
       <Link
         to={`/category/${props.match.params.topicId}/${props.topic.id}`}
-        style={{ textDecoration: "none" }}
+        style={{ textDecoration: "none", color: "#ffc400" }}
       >
         <Card
           classes={{
             root: classes.root
           }}
-          className="category-box"
+          className="topic-box"
           raised={true}
         >
+          <div className="icon"></div>
           <CardHeader
             classes={{ root: classes.headerRoot, avatar: classes.avatar }}
-            className="category-box-text"
-            title={props.topic.name}
+            className="topic-box-text"
           />
+          <CardContent>{props.topic.name}</CardContent>
         </Card>
+        <div style={{ width: "100%" }}>
+          <p
+            style={{
+              width: "100%",
+              textAlign: "right"
+            }}
+          >
+            downloads
+          </p>
+        </div>
       </Link>
     </Container>
   );
