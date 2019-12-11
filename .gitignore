@@ -12,6 +12,7 @@
 /build
 
 # misc
+./src/Config.js
 .env
 .DS_Store
 .env

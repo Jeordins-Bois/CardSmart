@@ -5,12 +5,15 @@ import { Switch, Route } from "react-router-dom";
 import Categories from "./components/Categories/Categories";
 import Topics from "./components/Topics/Topics";
 import Deck from "./components/Deck/Deck";
+import comprehendDelete from "./comprehendDelete/Comprehend";
+
 
 export default (
   <Switch>
     <Route exact path="/" component={Categories} />
     <Route exact path="/category/:topicId" component={Topics} />
     <Route exact path="/category/:topicId/:deckId" component={Deck} />
+    <Route exact path="/comprehend" component={comprehendDelete} />
   </Switch>
 );
 
