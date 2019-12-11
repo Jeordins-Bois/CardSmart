@@ -8,8 +8,7 @@ import {
   Card,
   CardHeader,
   CardContent,
-  Avatar,
-  CardActions
+  Fab
 } from "@material-ui/core";
 
 //this is all material ui stuff i couldn't get it to work in another file and then import it so it's here
@@ -21,35 +20,38 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    backgroundColor: "#607d8b",
+    backgroundColor: "white",
     overflow: "visible"
   },
   headerRoot: {
+    borderTopRightRadius: "4px",
     width: "100%",
     margin: 0,
     padding: 0,
     height: "20%",
-    backgroundColor: "#ffc400"
+    backgroundColor: theme.palette.primary[700]
   },
-  avatar: {
-    position: "relative",
-    left: -10,
-    top: -10
-  },
-  title: {}
+  fab: {
+    backgroundColor: theme.palette.primary[700],
+    boxShadow:
+      "inset 0px 0px 4px -1px rgba(237, 236, 236), inset 0px 0px 5px 0px rgba(237, 236, 236), inset 0px 0px 10px 0px rgba(237, 236, 236)",
+    position: "absolute",
+    zIndex: 1,
+    top: -20,
+    left: -10
+  }
 }));
 //End of materialui stuff
 
 const Topic = props => {
   const classes = useStyles();
-  console.log(props);
   return (
     //   Link goes to "Topics" page of corresponding category
 
     <Container maxWidth="md" style={{ marginBottom: "5vh" }}>
       <Link
         to={`/category/${props.match.params.topicId}/${props.topic.id}`}
-        style={{ textDecoration: "none", color: "#ffc400" }}
+        style={{ textDecoration: "none", color: "black" }}
       >
         <Card
           classes={{
@@ -58,11 +60,13 @@ const Topic = props => {
           className="topic-box"
           raised={true}
         >
-          <div className="icon"></div>
-          <CardHeader
-            classes={{ root: classes.headerRoot, avatar: classes.avatar }}
-            className="topic-box-text"
+          <Fab
+            disableRipple={true}
+            classes={{
+              root: classes.fab
+            }}
           />
+          <CardHeader classes={{ root: classes.headerRoot }} />
           <CardContent>{props.topic.name}</CardContent>
         </Card>
         <div style={{ width: "100%" }}>

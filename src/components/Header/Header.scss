@@ -2,7 +2,7 @@
 
 #mobile-header {
   height: 10vh;
-  background-color: $main-color;
+  // background-color: $main-color;
   border-bottom: 1px solid red;
   @include flex(row, center, center);
 }

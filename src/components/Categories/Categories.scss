@@ -1,7 +1,7 @@
 @import "../../sass/_vars.scss";
 
 .categories-container {
-  background-color: $main-color;
+  background-color: $background-color;
   @include flex(column, center, center);
   padding: 10vw 10vw 0 10vw;
 }

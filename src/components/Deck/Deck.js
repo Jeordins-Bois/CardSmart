@@ -1,8 +1,20 @@
 //Full Deck of cards
 import React, { useState, useEffect } from "react";
+import "./Deck.css";
+import { Paper } from "@material-ui/core";
 import Question from "./Question";
+import { makeStyles, useTheme } from "@material-ui/styles";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: "100vw",
+    height: "20vh",
+    backgroundColor: `${theme.palette.secondary["A100"]}`
+  }
+}));
 
 const Deck = props => {
+  const classes = useStyles();
   const [state, setState] = useState({
     cards: [
       {
@@ -20,14 +32,32 @@ const Deck = props => {
         question: "what is the airspeed velocity of an unladen swallow?",
         answer: "African or European?"
       }
-    ]
+    ],
+    side: "question"
   });
+
+  const handleFlip = () => {
+    state.side === "question"
+      ? setState({ ...state, side: "answer" })
+      : setState({ ...state, side: "question" });
+  };
   return (
-    <section className="deck-container">
-      {/* {state.cards.map(card => {
-        return <Question key={`questionkey${state.cards.id}`} card={card} />;
-      })} */}
-    </section>
+    <>
+      <Paper className={classes.root}></Paper>
+      <section className="deck-container">
+        {state.cards.map(card => {
+          return (
+            <Question
+              side={state.side}
+              handleFlip={handleFlip}
+              side={state.side}
+              key={`questionkey${card.question}`}
+              card={card}
+            />
+          );
+        })}
+      </section>
+    </>
   );
 };
 
