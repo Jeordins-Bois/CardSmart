@@ -8,7 +8,8 @@ import {
   Card,
   CardHeader,
   CardContent,
-  Avatar
+  Avatar,
+  CardActions
 } from "@material-ui/core";
 
 //this is all material ui stuff i couldn't get it to work in another file and then import it so it's here
@@ -23,7 +24,6 @@ import {
 // root: classes.root and that overrides the default styling of the root class in the Card Component
 // with whatever styling I give it
 //----------------------------------------------------------------
-const drawerWidth = 275;
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -47,32 +47,31 @@ const useStyles = makeStyles(theme => ({
 
 const Category = props => {
   const classes = useStyles();
-
+  console.log(props);
   return (
     //   Link goes to "Topics" page of corresponding category
-    // <Link to={`/category/${props.id}`}>
+
     <Container maxWidth="md">
-      <Card
-        classes={{
-          root: classes.root
-        }}
-        className="category-box"
-        raised={true}
+      <Link
+        to={`/category/${props.category.id}`}
+        style={{ textDecoration: "none" }}
       >
-        <CardHeader
-          classes={{ root: classes.headerRoot, avatar: classes.avatar }}
-          avatar={
-            <Avatar
-              src={`https://api.adorable.io/avatars/285/${props.category.id}`}
-            />
-          }
-          className="category-box-text"
-          title={props.category.title}
-        />
-        <CardContent>{props.category.description}</CardContent>
-      </Card>
+        <Card
+          classes={{
+            root: classes.root
+          }}
+          className="category-box"
+          raised={true}
+        >
+          <CardHeader
+            classes={{ root: classes.headerRoot, avatar: classes.avatar }}
+            className="category-box-text"
+            title={props.category.title}
+          />
+          <CardContent>{props.category.description}</CardContent>
+        </Card>
+      </Link>
     </Container>
-    // </Link>
   );
 };
 
