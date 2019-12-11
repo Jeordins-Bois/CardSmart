@@ -12,10 +12,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import "./Header.css";
-import { blueGrey } from "@material-ui/core/colors";
 
+
+//this is all material ui stuff i couldn't get it to work in another file and then import it so it's here
 const drawerWidth = 275;
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex"
@@ -58,6 +58,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 0
   }
 }));
+//End of materialui stuff
 
 const Header = props => {
   const classes = useStyles();
@@ -106,7 +107,7 @@ const Header = props => {
           anchor="left"
           open={open}
           classes={{
-            paper: `${classes.drawerPaper} drawer`
+            paper: classes.drawerPaper
           }}
           className={classes.drawer}
         >
