@@ -24,9 +24,9 @@ const Deck = props => {
   });
   return (
     <section className="deck-container">
-      {state.cards.map(card => {
+      {/* {state.cards.map(card => {
         return <Question key={`questionkey${state.cards.id}`} card={card} />;
-      })}
+      })} */}
     </section>
   );
 };
