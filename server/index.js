@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const massive = require("massive");
 const session = require("express-session");
-const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
+const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, HOSTED_PORT } = process.env;
 
 //import controllers go here
 
@@ -31,16 +31,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get(
-  "/api/login",
-  passport.authenticate("auth0", {
-    // ------------------
-    failureRedirect: `http://localhost:3000/`
-  }),
-  (req, res) => {
-    res.redirect(`http://localhost:3000/`);
-  }
-);
+
 
 passport.use(
   new Auth0Strategy(
@@ -95,14 +86,23 @@ passport.deserializeUser(function(obj, done) {
 
 app.get(`/api/logout`, (req, res) => {
   req.logout();
-  let returnTo = "http://localhost:3000/";
+  let returnTo = `${HOSTED_PORT}`;
   res.redirect(
     `https://${process.env.DOMAIN}/v2/logout?returnTo=${returnTo}&client_id=${process.env.CLIENT_ID}`
   );
 });
 
 //endpoints
-app.get("/api/login");
+app.get(
+  "/api/login",
+  passport.authenticate("auth0", {
+    // ------------------
+    failureRedirect: `${HOSTED_PORT}`
+  }),
+  (req, res) => {
+    res.redirect(`${HOSTED_PORT}`);
+  }
+);
 app.get("/api/user", (req, res) => {
   console.log(req.session);
   if (req.user) {

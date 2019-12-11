@@ -1,10 +1,69 @@
 //Main header with 2 dropdowns
 import React, { useEffect, useState } from "react";
+
 //? Redux Imports
 import { connect } from "react-redux";
 import { checkSession } from "../../ducks/reducers/userReducer";
 
+//MaterialUi imports
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { AppBar, Toolbar, Button, Drawer, IconButton } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import "./Header.css";
+import { blueGrey } from "@material-ui/core/colors";
+
+const drawerWidth = 275;
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex"
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  hide: {
+    display: "none"
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0
+  },
+  drawerPaper: {
+    width: drawerWidth,
+    backgroundColor: "#607d8b"
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end"
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    marginLeft: -drawerWidth
+  },
+  contentShift: {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen
+    }),
+    marginLeft: 0
+  }
+}));
+
 const Header = props => {
+  const classes = useStyles();
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
   //? Checks Session on mount to see if user is logged in
   useEffect(() => {
     props.checkSession();
@@ -15,6 +74,10 @@ const Header = props => {
     window.location.href = "http://localhost:3069/api/login";
   };
 
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   console.log(props.ducks);
 
   //? Ternary to show the user logged in or the guest
@@ -22,9 +85,42 @@ const Header = props => {
     return <h1>{props.ducks.userReducer.user.username}</h1>;
   } else {
     return (
-      <h1>
-        <button onClick={userLogin}>Login</button>
-      </h1>
+      <>
+        <AppBar position="static" color="primary">
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
+              edge="start"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Button variant="contained" color="secondary" onClick={userLogin}>
+              Login
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="persistent"
+          anchor="left"
+          open={open}
+          classes={{
+            paper: `${classes.drawerPaper} drawer`
+          }}
+          className={classes.drawer}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={toggleDrawer}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </div>
+        </Drawer>
+      </>
     );
   }
 };
