@@ -1,19 +1,5 @@
 @import "../../sass/_vars.scss";
 
-.categories-container {
-  background-color: $background-color;
-  @include flex(column, center, center);
-  padding: 10vw 10vw 0 10vw;
-  height: 85vh;
-}
-
-.category-box {
-  @include flex(row, center, center);
-  height: 15vh;
-  width: 100%;
-  margin-bottom: 10vw;
-}
-
 .category-box-text {
   color: $text-color;
 }

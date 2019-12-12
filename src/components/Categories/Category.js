@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
   headerRoot: {
     borderTopRightRadius: "4px",
+    borderTopLeftRadius: "4px",
     width: "100%",
     margin: 0,
     padding: 0
@@ -52,7 +53,7 @@ const Category = props => {
   return (
     //   Link goes to "Topics" page of corresponding category
 
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <Link
         to={`/category/${props.category.id}`}
         style={{ textDecoration: "none" }}
@@ -61,7 +62,7 @@ const Category = props => {
           classes={{
             root: classes.root
           }}
-          className="category-box"
+          className="card"
           raised={true}
         >
           <CardHeader
