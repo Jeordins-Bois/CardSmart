@@ -21,7 +21,7 @@ const Categories = () => {
   }, [state.categories]);
 
   return (
-    <section className="categories-container">
+    <section className="container">
       {/* mapping over categories on state, passing info received from the axios request down as props*/}
       {state.categories.map(category => {
         return (

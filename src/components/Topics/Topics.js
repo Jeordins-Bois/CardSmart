@@ -11,11 +11,14 @@ const Topics = props => {
     ]
   });
   return (
-    <section className="topics-container">
-      {state.topics.map(topic => {
-        return <Topic key={`topickey${topic.name}`} topic={topic} />;
-      })}
-    </section>
+    <>
+      <div style={{ height: "10vh", backgroundColor: "#f5f5f5" }}></div>
+      <section className="container">
+        {state.topics.map(topic => {
+          return <Topic key={`topickey${topic.name}`} topic={topic} />;
+        })}
+      </section>
+    </>
   );
 };
 
