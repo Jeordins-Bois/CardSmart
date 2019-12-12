@@ -3,12 +3,9 @@ import React, { useState, useEffect } from "react";
 import "./AddPreview.css";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Drawer, IconButton} from "@material-ui/core";
+import { AppBar, Toolbar, Drawer, IconButton } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
-import { height } from "@material-ui/system";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-
-const drawerHeight = 275;
 
 const useStyles = makeStyles({
   list: {
@@ -19,10 +16,9 @@ const useStyles = makeStyles({
   }
 });
 
-
-
 const AddPreview = () => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const [open, setOpen] = useState(false);
 
@@ -44,8 +40,8 @@ const AddPreview = () => {
       >
         <Toolbar>
           <Fab
-            color="secondary"
             style={{
+              backgroundColor: `${theme.palette.secondary["A100"]}`,
               position: "absolute",
               zIndex: 1,
               top: -28,
@@ -66,15 +62,10 @@ const AddPreview = () => {
         anchor="bottom"
         open={open}
       >
-        <div
-          className={classes.fullList}
-          role="presentation"
-        >
-           <IconButton onClick={toggleDrawer}>
-             
-                <ChevronLeftIcon />
-             
-            </IconButton>
+        <div className={classes.fullList} role="presentation">
+          <IconButton onClick={toggleDrawer}>
+            <ChevronLeftIcon />
+          </IconButton>
         </div>
       </Drawer>
     </>

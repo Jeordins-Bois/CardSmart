@@ -2,7 +2,8 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "Deck.scss"
+        "Deck.scss",
+        "../../sass/_vars.scss"
     ],
     "names": [],
     "file": "Deck.css"

@@ -8,7 +8,7 @@ import { makeStyles, useTheme } from "@material-ui/styles";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100vw",
-    height: "20vh",
+    height: "25vh",
     backgroundColor: `${theme.palette.secondary["A100"]}`
   }
 }));
@@ -31,6 +31,11 @@ const Deck = props => {
         id: 3,
         question: "what is the airspeed velocity of an unladen swallow?",
         answer: "African or European?"
+      },
+      {
+        id: 4,
+        question: "how many of these do we need?",
+        answer: "Definitely a couple more"
       }
     ],
     side: "question"
@@ -44,7 +49,7 @@ const Deck = props => {
   return (
     <>
       <Paper className={classes.root}></Paper>
-      <section className="deck-container">
+      <section className="container">
         {state.cards.map(card => {
           return (
             <Question

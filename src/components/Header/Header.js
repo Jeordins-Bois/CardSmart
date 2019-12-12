@@ -17,6 +17,7 @@ import "./Header.css";
 const drawerWidth = 275;
 const useStyles = makeStyles(theme => ({
   root: {
+    position: "fixed",
     display: "flex",
     backgroundColor: theme.palette.primary[700]
   },
@@ -32,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: theme.palette.primary[700]
+    backgroundColor: "#f5f5f5"
   },
   drawerHeader: {
     display: "flex",
@@ -56,9 +57,6 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen
     }),
     marginLeft: 0
-  },
-  button: {
-    backgroundColor: theme.palette.secondary["A100"]
   }
 }));
 //End of materialui stuff
@@ -83,6 +81,7 @@ const Header = props => {
   };
 
   console.log(props.ducks);
+  console.log(theme);
 
   //? Ternary to show the user logged in or the guest
   if (props.ducks.userReducer.loggedIn) {
@@ -106,9 +105,9 @@ const Header = props => {
             </IconButton>
             <Button
               variant="contained"
-              color="secondary"
               onClick={userLogin}
               style={{
+                backgroundColor: `${theme.palette.secondary["A100"]}`,
                 position: "absolute",
                 zIndex: 1,
                 right: 0,
@@ -120,7 +119,6 @@ const Header = props => {
           </Toolbar>
         </AppBar>
         <Drawer
-          variant="persistent"
           anchor="left"
           open={open}
           classes={{

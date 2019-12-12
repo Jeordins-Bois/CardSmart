@@ -1,6 +1,1 @@
-.deck-container {
-  background-color: $background-color;
-  @include flex(column, center, center);
-  padding: 10vw 10vw 0 10vw;
-  height: 85vh;
-}
+@import "../../sass/vars";
