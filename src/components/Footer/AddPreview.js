@@ -1,30 +1,104 @@
 //Footer with add button
 import React, { useState, useEffect } from "react";
 import "./AddPreview.css";
+import FooterCategory from "./FooterCategory";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Drawer, IconButton } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
+import { height } from "@material-ui/system";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
+//!
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+//!
+
+const drawerHeight = 275;
+
 const useStyles = makeStyles({
+  //!
+  root: {
+    width: "100%"
+  },
+  backButton: {
+    // marginRight: theme.spacing(1)
+  },
+  instructions: {
+    // marginTop: theme.spacing(1),
+    // marginBottom: theme.spacing(1)
+  },
+  //!
   list: {
     width: 250
   },
   fullList: {
-    height: "90vh"
+    height: "90vh",
+    backgroundColor: "rgba(245,245,245, 1)"
   }
 });
 
+//!
+function getSteps() {
+  return ["Category", "Content", "Submit"];
+}
+
+function getStepContent(stepIndex) {
+  switch (stepIndex) {
+    case 0:
+      return "Select campaign settings...";
+    case 1:
+      return "What is an ad group anyways?";
+    case 2:
+      return "This is the bit I really care about!";
+    default:
+      return "Unknown stepIndex";
+  }
+}
+//!
+
 const AddPreview = () => {
   const classes = useStyles();
-  const theme = useTheme();
 
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  //!
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
+
+  const handleNext = () => {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+  //!
+
+  //?
+  const [state, setState] = useState({
+    categories: [
+      {
+        title: "dummy thicc data",
+        description: "I'm trying to code, but the clap of this card's etc.",
+        id: 1
+      },
+      { title: "category 2", description: "The boring one", id: 2 },
+      { title: "djkhaled", description: "another one", id: 3 }
+    ]
+  });
+  //?
 
   return (
     <>
@@ -40,8 +114,8 @@ const AddPreview = () => {
       >
         <Toolbar>
           <Fab
+            color="secondary"
             style={{
-              backgroundColor: `${theme.palette.secondary["A100"]}`,
               position: "absolute",
               zIndex: 1,
               top: -28,
@@ -56,20 +130,66 @@ const AddPreview = () => {
           </Fab>
         </Toolbar>
       </AppBar>
-      <Drawer
-        className={classes.fullList}
-        role="presentation"
-        anchor="bottom"
-        open={open}
-      >
+      <Drawer anchor="bottom" open={open}>
         <div className={classes.fullList} role="presentation">
           <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
+            <div className={classes.root}></div>
           </IconButton>
-        </div>
+          //!
+          <Stepper activeStep={activeStep} alternativeLabel>
+            {steps.map(label => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <div>
+            {activeStep === steps.length ? (
+              <div>
+                <Typography className={classes.instructions}>
+                  All steps completed
+                </Typography>
+                <Button onClick={handleReset}>Reset</Button>
+              </div>
+            ) : (
+              <div>
+                <Typography className={classes.instructions}>
+                  {getStepContent(activeStep)}
+                </Typography>
+                <div>
+                  <Button
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    className={classes.backButton}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                  >
+                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+          //!
+          {state.categories.map(category => {
+          return (
+            <FooterCategory
+              key={`categorykey${category.name}`}
+              category={category}
+            />
+          );
+        })}
+        </div> 
       </Drawer>
     </>
   );
 };
 
 export default AddPreview;
+
