@@ -55,7 +55,6 @@ const Deck = props => {
             <Question
               side={state.side}
               handleFlip={handleFlip}
-              side={state.side}
               key={`questionkey${card.question}`}
               card={card}
             />

@@ -1,5 +1,6 @@
 //Main header with 2 dropdowns
 import React, { useEffect, useState } from "react";
+import { withRouter, Link } from "react-router-dom";
 
 //? Redux Imports
 import { connect } from "react-redux";
@@ -7,7 +8,14 @@ import { checkSession } from "../../ducks/reducers/userReducer";
 
 //MaterialUi imports
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Button, Drawer, IconButton } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Drawer,
+  IconButton,
+  Breadcrumbs
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -80,8 +88,23 @@ const Header = props => {
     setOpen(!open);
   };
 
-  console.log(props.ducks);
-  console.log(theme);
+  const getBreadcrumbContent = () => {
+    const path = props.location.pathname.split("/");
+    // const path = [1, 2, 3];
+    path.splice(0, 2);
+
+    const strings = [];
+    path.reduce((a, e) => {
+      const string = a + "/" + e;
+      strings.push(string);
+      console.log(string);
+      return string;
+    }, "category");
+    return strings.map(e => {
+      console.log(e);
+      return <Link to={`/${e}`}>Link</Link>;
+    });
+  };
 
   //? Ternary to show the user logged in or the guest
   if (props.ducks.userReducer.loggedIn) {
@@ -101,7 +124,7 @@ const Header = props => {
               onClick={toggleDrawer}
               edge="start"
             >
-              <MenuIcon />
+              <MenuIcon fontSize="large" />
             </IconButton>
             <Button
               variant="contained"
@@ -114,8 +137,14 @@ const Header = props => {
                 marginRight: "5vw"
               }}
             >
-              Login
+              LOGIN
             </Button>
+          </Toolbar>
+          <Toolbar variant="dense">
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link to="/">Home</Link>
+              {getBreadcrumbContent()}
+            </Breadcrumbs>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -129,9 +158,9 @@ const Header = props => {
           <div className={classes.drawerHeader}>
             <IconButton onClick={toggleDrawer}>
               {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
+                <ChevronLeftIcon fontSize="large" />
               ) : (
-                <ChevronRightIcon />
+                <ChevronRightIcon fontSize="large" />
               )}
             </IconButton>
           </div>
@@ -147,4 +176,4 @@ const mapReduxToProps = ducks => {
   };
 };
 
-export default connect(mapReduxToProps, { checkSession })(Header);
+export default connect(mapReduxToProps, { checkSession })(withRouter(Header));

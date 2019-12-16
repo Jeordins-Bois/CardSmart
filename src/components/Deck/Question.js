@@ -12,6 +12,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between",
     backgroundColor: "white",
     overflow: "visible"
+  },
+  cardContent: {
+    position: "relative",
+    width: "90%",
+    height: "100%"
   }
 }));
 
@@ -28,7 +33,12 @@ const Question = props => {
   };
 
   return (
-    <Container maxWidth="lg" style={{ marginBottom: "5vh" }}>
+    <Container
+      maxWidth="lg"
+      style={{
+        marginBottom: "5vh"
+      }}
+    >
       {state.side === "question" ? (
         <Card
           onClick={() => {
@@ -38,7 +48,16 @@ const Question = props => {
           className="card"
           raised={true}
         >
-          <CardContent>{props.card.question}</CardContent>
+          <CardContent classes={{ root: classes.cardContent }}>
+            <span
+              style={{ position: "absolute", left: "16px", fontSize: "36px" }}
+            >
+              Q:
+            </span>
+            <div className="flexer">
+              <p style={{ fontSize: "24px" }}>{props.card.question}</p>
+            </div>
+          </CardContent>
         </Card>
       ) : (
         <Card
@@ -49,8 +68,16 @@ const Question = props => {
           className="card"
           raised={false}
         >
-          {" "}
-          <CardContent>{props.card.answer}</CardContent>
+          <CardContent classes={{ root: classes.cardContent }}>
+            <span
+              style={{ position: "absolute", left: "16px", fontSize: "36px" }}
+            >
+              A:
+            </span>
+            <div className="flexer">
+              <p style={{ fontSize: "24px" }}>{props.card.answer}</p>
+            </div>
+          </CardContent>
         </Card>
       )}
     </Container>
