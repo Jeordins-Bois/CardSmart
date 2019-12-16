@@ -56,7 +56,7 @@ const Category = props => {
 
     <Container maxWidth="lg">
       <Link
-        to={`/category/${props.category.id}`}
+        to={`/category/${props.category.category_id}`}
         style={{ textDecoration: "none" }}
       >
         <Card
@@ -69,9 +69,9 @@ const Category = props => {
           <CardHeader
             classes={{ root: classes.headerRoot }}
             className="category-box-text"
-            title={props.category.title}
+            title={props.category.category_name}
           />
-          <CardContent>{props.category.description}</CardContent>
+          <CardContent>{props.category.category_description}</CardContent>
         </Card>
       </Link>
     </Container>
