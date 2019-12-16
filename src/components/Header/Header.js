@@ -65,6 +65,9 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen
     }),
     marginLeft: 0
+  },
+  breadcrumbSeparator: {
+    color: "#f5f5f5"
   }
 }));
 //End of materialui stuff
@@ -97,12 +100,16 @@ const Header = props => {
     path.reduce((a, e) => {
       const string = a + "/" + e;
       strings.push(string);
-      console.log(string);
+      // console.log(string);
       return string;
     }, "category");
     return strings.map(e => {
-      console.log(e);
-      return <Link to={`/${e}`}>Link</Link>;
+      // console.log(e);
+      return (
+        <Link style={{ color: "#f5f5f5" }} to={`/${e}`}>
+          Link
+        </Link>
+      );
     });
   };
 
@@ -140,9 +147,17 @@ const Header = props => {
               LOGIN
             </Button>
           </Toolbar>
-          <Toolbar variant="dense">
-            <Breadcrumbs aria-label="breadcrumb">
-              <Link to="/">Home</Link>
+          <Toolbar
+            variant="dense"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <Breadcrumbs
+              classes={{ separator: classes.breadcrumbSeparator }}
+              aria-label="breadcrumb"
+            >
+              <Link style={{ color: "#f5f5f5" }} to="/">
+                Home
+              </Link>
               {getBreadcrumbContent()}
             </Breadcrumbs>
           </Toolbar>

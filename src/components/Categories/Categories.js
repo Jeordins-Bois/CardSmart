@@ -25,12 +25,15 @@ const Categories = () => {
 
   return (
     <>
-      <div style={{ height: "10vh", backgroundColor: "#f5f5f5" }}></div>
+      <div style={{ height: "15vh", backgroundColor: "#f5f5f5" }}></div>
       <section className="container">
         {/* mapping over categories on state, passing info received from the axios request down as props*/}
         {state.categories.map(category => {
           return (
-            <Category key={`categorykey${category.title}`} category={category} />
+            <Category
+              key={`categorykey${category.title}`}
+              category={category}
+            />
           );
         })}
       </section>

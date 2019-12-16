@@ -3,6 +3,7 @@ import promiseMiddleware from "redux-promise-middleware";
 
 //? Import reducers
 import userReducer from "./reducers/userReducer";
+import headerReducer from './reducers/headerReducer';
 
 const rootReducer = combineReducers({
   userReducer
