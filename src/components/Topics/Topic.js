@@ -17,6 +17,7 @@ import {
 //----------------------------------------------------------------
 const useStyles = makeStyles(theme => ({
   root: {
+    position: "relative",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -33,6 +34,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.primary[700]
   },
   fab: {
+    height: "75px",
+    width: "75px",
     backgroundColor: theme.palette.primary[700],
     boxShadow:
       "inset 0px 0px 4px -1px rgba(237, 236, 236), inset 0px 0px 5px 0px rgba(237, 236, 236), inset 0px 0px 10px 0px rgba(237, 236, 236)",
@@ -66,20 +69,24 @@ const Topic = props => {
             classes={{
               root: classes.fab
             }}
-          />
+          >
+            {" "}
+          </Fab>
           <CardHeader classes={{ root: classes.headerRoot }} />
           <CardContent>{props.topic.name}</CardContent>
-        </Card>
-        <div style={{ width: "100%" }}>
-          <p
-            style={{
-              width: "100%",
-              textAlign: "right"
-            }}
+          <div
+            style={{ width: "100%", marginBottom: "5px", marginRight: "5px" }}
           >
-            downloads
-          </p>
-        </div>
+            <p
+              style={{
+                width: "100%",
+                textAlign: "right"
+              }}
+            >
+              downloads
+            </p>
+          </div>
+        </Card>
       </Link>
     </Container>
   );

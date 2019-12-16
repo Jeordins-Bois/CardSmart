@@ -8,16 +8,14 @@ import { AppBar, Toolbar, Drawer, IconButton } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import { height } from "@material-ui/system";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-
+import Add from "@material-ui/icons/Add";
 //!
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-//!
-
-const drawerHeight = 275;
+//
 
 const useStyles = makeStyles({
   //!
@@ -38,6 +36,15 @@ const useStyles = makeStyles({
   fullList: {
     height: "90vh",
     backgroundColor: "rgba(245,245,245, 1)"
+  },
+  appBar: {
+    top: "auto",
+    bottom: 0,
+    boxShadow:
+      "0px -2px 4px -1px rgba(0,0,0,0.2), 0px -4px 5px 0px rgba(0,0,0,0.14), 0px -1px 10px 0px rgba(0,0,0,0.12)"
+  },
+  stepper: {
+    backgroundColor: "#f5f5f5"
   }
 });
 
@@ -62,6 +69,7 @@ function getStepContent(stepIndex) {
 
 const AddPreview = () => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const [open, setOpen] = useState(false);
 
@@ -99,23 +107,23 @@ const AddPreview = () => {
     ]
   });
   //?
-
   return (
     <>
       <AppBar
+        classes={{ root: classes.appBar }}
         position="fixed"
-        style={{
-          top: "auto",
-          bottom: 0,
-          boxShadow:
-            "0px -2px 4px -1px rgba(0,0,0,0.2), 0px -4px 5px 0px rgba(0,0,0,0.14), 0px -1px 10px 0px rgba(0,0,0,0.12)"
-        }}
+        // style={{
+        //   top: "auto",
+        //   bottom: 0,
+        //   boxShadow:
+        //     "0px -2px 4px -1px rgba(0,0,0,0.2), 0px -4px 5px 0px rgba(0,0,0,0.14), 0px -1px 10px 0px rgba(0,0,0,0.12)"
+        // }}
         color="primary"
       >
         <Toolbar>
           <Fab
-            color="secondary"
             style={{
+              backgroundColor: `${theme.palette.secondary.A100}`,
               position: "absolute",
               zIndex: 1,
               top: -28,
@@ -126,18 +134,21 @@ const AddPreview = () => {
             }}
             onClick={toggleDrawer}
           >
-            <i class="fas fa-plus"></i>
+            <Add fontSize="large" />
           </Fab>
         </Toolbar>
       </AppBar>
       <Drawer anchor="bottom" open={open}>
         <div className={classes.fullList} role="presentation">
           <IconButton onClick={toggleDrawer}>
-            <ChevronLeftIcon />
+            <ChevronLeftIcon fontSize="large" />
             <div className={classes.root}></div>
           </IconButton>
-          //!
-          <Stepper activeStep={activeStep} alternativeLabel>
+          <Stepper
+            classes={{ root: classes.stepper }}
+            activeStep={activeStep}
+            alternativeLabel
+          >
             {steps.map(label => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -176,20 +187,19 @@ const AddPreview = () => {
               </div>
             )}
           </div>
-          //!
+          {/* //! */}
           {state.categories.map(category => {
-          return (
-            <FooterCategory
-              key={`categorykey${category.name}`}
-              category={category}
-            />
-          );
-        })}
-        </div> 
+            return (
+              <FooterCategory
+                key={`categorykey${category.name}`}
+                category={category}
+              />
+            );
+          })}
+        </div>
       </Drawer>
     </>
   );
 };
 
 export default AddPreview;
-
