@@ -9,7 +9,7 @@ const initialState = {
 
 export const checkSession = () => {
     let userSession = axios.get('/api/user').then(res => res.data)
-    console.log('session', userSession)
+    // console.log('session', userSession)
     return {
         type: CHECK_SESSION,
         payload: userSession

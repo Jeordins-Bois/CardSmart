@@ -11,6 +11,7 @@ import {
   Avatar,
   CardActions
 } from "@material-ui/core";
+import { getCategory } from "../../ducks/reducers/headerReducer";
 
 //this is all material ui stuff i couldn't get it to work in another file and then import it so it's here
 //----------------------------------------------------------------
