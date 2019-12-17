@@ -1,22 +1,29 @@
-import { GET_CATEGORY, GET_TOPIC } from "../actionTypes";
+import { SET_CATEGORY, SET_TOPIC } from "../actionTypes";
+import axios from "axios";
 
 const initialState = {
-  category: "",
-  topic: ""
+  category: " ",
+  topic: " "
 };
 
-//NOT FULLY WORKING YET, I'LL NEED TO SETUP SOME ENDPOINTS FIRST TO FIGURE IT OUT
-export const getCategory = category => {
-  console.log(category);
+export const setCategory = name => {
+  const category = axios
+    .get(`/api/category/${name}`)
+    .then(res => res.data)
+    .catch(err => console.log("getCategory error: " + err));
   return {
-    type: GET_CATEGORY,
+    type: SET_CATEGORY,
     payload: category
   };
 };
 
-export const getTopic = topic => {
+export const setTopic = name => {
+  const topic = axios
+    .get(`/api/topic/${name}`)
+    .then(res => res.data)
+    .catch(err => console.log("getTopic error: " + err));
   return {
-    type: GET_TOPIC,
+    type: SET_TOPIC,
     payload: topic
   };
 };
@@ -24,14 +31,11 @@ export const getTopic = topic => {
 export default function(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case GET_CATEGORY + "_PENDING":
-      return { ...state };
-    case GET_CATEGORY + "_FULFILLED":
+    case SET_CATEGORY + "_FULFILLED":
       return { ...state, category: payload };
-    case GET_TOPIC + "_PENDING":
-      return { ...state };
-    case GET_TOPIC + "FULFILLED":
+    case SET_TOPIC + "_FULFILLED":
       return { ...state, topic: payload };
+
     default:
       return state;
   }

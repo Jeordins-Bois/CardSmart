@@ -5,6 +5,7 @@ import { withRouter, Link } from "react-router-dom";
 //? Redux Imports
 import { connect } from "react-redux";
 import { checkSession } from "../../ducks/reducers/userReducer";
+import { setCategory, setTopic } from "../../ducks/reducers/headerReducer";
 
 //MaterialUi imports
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -79,6 +80,8 @@ const Header = props => {
 
   //? Checks Session on mount to see if user is logged in
   useEffect(() => {
+    props.setCategory();
+    props.setTopic();
     props.checkSession();
   }, []);
 
@@ -103,11 +106,14 @@ const Header = props => {
       // console.log(string);
       return string;
     }, "category");
-    return strings.map(e => {
+    return strings.map((e, i) => {
       // console.log(e);
+      console.log(props.ducks);
       return (
         <Link style={{ color: "#f5f5f5" }} to={`/${e}`}>
-          Link
+          {i === 0
+            ? props.ducks.headerReducer.category
+            : props.ducks.headerReducer.topic}
         </Link>
       );
     });
@@ -191,4 +197,8 @@ const mapReduxToProps = ducks => {
   };
 };
 
-export default connect(mapReduxToProps, { checkSession })(withRouter(Header));
+export default connect(mapReduxToProps, {
+  checkSession,
+  setCategory,
+  setTopic
+})(withRouter(Header));

@@ -116,6 +116,9 @@ app.get("/api/user", (req, res) => {
 
 //Category Endpoints
 app.get("/api/categories", catCtrl.getCategories);
+app.get('/api/category/:name', catCtrl.getCategory)
+app.get('/api/topics', catCtrl.getTopics);
+app.get('/api/topic/:name', catCtrl.getTopic)
 
 //listen
 const port = SERVER_PORT || 3069;

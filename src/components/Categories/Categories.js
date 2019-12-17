@@ -20,10 +20,12 @@ const Categories = () => {
 
   //is called once on render
   useEffect(() => {
-    axios.get("/api/categories").then(res => {
-      setState({ ...state, categories: res.data });
-      console.log(state);
-    });
+    axios
+      .get("/api/categories")
+      .then(res => {
+        setState({ ...state, categories: res.data });
+      })
+      .catch(err => "getCategories error: " + err);
   }, []);
 
   return (

@@ -11,6 +11,10 @@ import {
   Fab
 } from "@material-ui/core";
 
+//? Redux imports
+import { connect } from "react-redux";
+import { setTopic } from "../../ducks/reducers/headerReducer";
+
 //this is all material ui stuff i couldn't get it to work in another file and then import it so it's here
 //----------------------------------------------------------------
 //see category.js for explanation
@@ -49,12 +53,17 @@ const useStyles = makeStyles(theme => ({
 
 const Topic = props => {
   const classes = useStyles();
+  console.log(props);
   return (
     //   Link goes to "Topics" page of corresponding category
 
-    <Container maxWidth="lg" style={{ marginBottom: "5vh" }}>
+    <Container
+      maxWidth="lg"
+      style={{ marginBottom: "5vh" }}
+      onClick={() => props.setTopic(props.topic.deck_name)}
+    >
       <Link
-        to={`/category/${props.match.params.topicId}/${props.topic.id}`}
+        to={`/category/${props.match.params.topicId}/${props.topic.deck_id}`}
         style={{ textDecoration: "none", color: "black" }}
       >
         <Card
@@ -73,7 +82,7 @@ const Topic = props => {
             {" "}
           </Fab>
           <CardHeader classes={{ root: classes.headerRoot }} />
-          <CardContent>{props.topic.name}</CardContent>
+          <CardContent>{props.topic.deck_name}</CardContent>
           <div
             style={{ width: "100%", marginBottom: "5px", marginRight: "5px" }}
           >
@@ -91,5 +100,12 @@ const Topic = props => {
     </Container>
   );
 };
+const mapStateToProps = reduxState => {
+  return reduxState;
+};
 
-export default withRouter(Topic);
+const mapDispatchToProps = {
+  setTopic
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Topic));

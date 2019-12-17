@@ -1,17 +1,11 @@
 //Specific Category Card
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import "./Categories.css";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import {
-  Container,
-  Card,
-  CardHeader,
-  CardContent,
-  Avatar,
-  CardActions
-} from "@material-ui/core";
-import { getCategory } from "../../ducks/reducers/headerReducer";
+import { makeStyles } from "@material-ui/core/styles";
+import { Container, Card, CardHeader, CardContent } from "@material-ui/core";
+import { setCategory } from "../../ducks/reducers/headerReducer";
 
 //this is all material ui stuff i couldn't get it to work in another file and then import it so it's here
 //----------------------------------------------------------------
@@ -50,11 +44,15 @@ const useStyles = makeStyles(theme => ({
 
 const Category = props => {
   const classes = useStyles();
-  console.log(props);
+  console.log(props.category);
   return (
     //   Link goes to "Topics" page of corresponding category
 
-    <Container maxWidth="lg">
+    <Container
+      style={{ backgroundImage: props.category.category_img }}
+      onClick={() => props.setCategory(props.category.category_name)}
+      maxWidth="lg"
+    >
       <Link
         to={`/category/${props.category.category_id}`}
         style={{ textDecoration: "none" }}
@@ -78,4 +76,12 @@ const Category = props => {
   );
 };
 
-export default Category;
+const mapStateToProps = reduxState => {
+  return reduxState;
+};
+
+const mapDispatchToProps = {
+  setCategory
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category);
