@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import "./AddPreview.css";
 import FooterCategory from "./FooterCategory";
+import AddDeck from "./AddDeck";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Drawer, IconButton } from "@material-ui/core";
@@ -94,6 +95,10 @@ const AddPreview = () => {
   };
   //!
 
+  let [completed, setCompleted] = useState(false);
+
+  let selectedComponent;
+
   //?
   const [state, setState] = useState({
     categories: [
@@ -106,7 +111,34 @@ const AddPreview = () => {
       { title: "djkhaled", description: "another one", id: 3 }
     ]
   });
-  //?
+  //?\
+
+  let [cardSetUp, setCard] = useState({ category: "", title: "" });
+  console.log({ cardSetUp });
+
+  //! Controller for which component shown
+  if (activeStep === 0) {
+    selectedComponent = state.categories.map(category => {
+      return (
+        <FooterCategory
+          key={`categorykey${category.name}`}
+          category={category}
+          setCompleted={setCompleted}
+          setCard={setCard}
+          cardSetUp={cardSetUp}
+        />
+      );
+    });
+  } else if (activeStep === 1) {
+    selectedComponent = (
+      <AddDeck
+        setCompleted={setCompleted}
+        setCard={setCard}
+        cardSetUp={cardSetUp}
+      />
+    );
+  }
+
   return (
     <>
       <AppBar
@@ -179,7 +211,11 @@ const AddPreview = () => {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleNext}
+                    onClick={function() {
+                      handleNext();
+                      setCompleted(false);
+                    }}
+                    disabled={!completed}
                   >
                     {activeStep === steps.length - 1 ? "Finish" : "Next"}
                   </Button>
@@ -187,15 +223,7 @@ const AddPreview = () => {
               </div>
             )}
           </div>
-          {/* //! */}
-          {state.categories.map(category => {
-            return (
-              <FooterCategory
-                key={`categorykey${category.name}`}
-                category={category}
-              />
-            );
-          })}
+          {selectedComponent}
         </div>
       </Drawer>
     </>
