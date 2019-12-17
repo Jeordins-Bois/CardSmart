@@ -8,7 +8,8 @@ const FooterCategory = props => {
         props.setCompleted(true);
         props.setCard({
           category: props.category,
-          title: props.cardSetUp.title
+          title: props.cardSetUp.title,
+          color: props.cardSetUp.color
         });
       }}
     >

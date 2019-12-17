@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 import "./AddPreview.css";
 import FooterCategory from "./FooterCategory";
 import AddDeck from "./AddDeck";
+import ColorFan from "./ColorFan";
+import CustomCard from "./CustomCard";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Drawer, IconButton } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import { height } from "@material-ui/system";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import Add from "@material-ui/icons/Add";
+import { ChevronLeft, Add, CreateNewFolder } from "@material-ui/icons";
 //!
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -57,11 +58,11 @@ function getSteps() {
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return "Select campaign settings...";
+      return "Select Category...";
     case 1:
-      return "What is an ad group anyways?";
+      return "Choose a title/accent color.";
     case 2:
-      return "This is the bit I really care about!";
+      return "Finalize your new Deck!";
     default:
       return "Unknown stepIndex";
   }
@@ -113,11 +114,11 @@ const AddPreview = () => {
   });
   //?\
 
-  let [cardSetUp, setCard] = useState({ category: "", title: "" });
+  let [cardSetUp, setCard] = useState({ category: "", title: "", color: "" });
   console.log({ cardSetUp });
 
-  //! Controller for which component shown
   if (activeStep === 0) {
+    //! Controller for which component shown
     selectedComponent = state.categories.map(category => {
       return (
         <FooterCategory
@@ -131,12 +132,26 @@ const AddPreview = () => {
     });
   } else if (activeStep === 1) {
     selectedComponent = (
-      <AddDeck
-        setCompleted={setCompleted}
-        setCard={setCard}
-        cardSetUp={cardSetUp}
-      />
+      <section>
+        <AddDeck
+          setCompleted={setCompleted}
+          setCard={setCard}
+          cardSetUp={cardSetUp}
+        />
+        <ColorFan
+          setCompleted={setCompleted}
+          setCard={setCard}
+          cardSetUp={cardSetUp}
+        />
+        <CreateNewFolder style={{ fontSize: "60px", color: "#455a64" }} />
+      </section>
     );
+  } else if (activeStep >= 2) {
+    selectedComponent = <CustomCard />;
+  }
+
+  if (cardSetUp.title && cardSetUp.color) {
+    completed = true;
   }
 
   return (
@@ -173,7 +188,7 @@ const AddPreview = () => {
       <Drawer anchor="bottom" open={open}>
         <div className={classes.fullList} role="presentation">
           <IconButton onClick={toggleDrawer}>
-            <ChevronLeftIcon fontSize="large" />
+            <ChevronLeft fontSize="large" />
             <div className={classes.root}></div>
           </IconButton>
           <Stepper
