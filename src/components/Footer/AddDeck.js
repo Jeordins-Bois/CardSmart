@@ -12,7 +12,8 @@ const AddDeck = props => {
           onChange={e =>
             props.setCard({
               category: props.cardSetUp.category,
-              title: e.target.value
+              title: e.target.value,
+              color: props.cardSetUp.color
             })
           }
         />
