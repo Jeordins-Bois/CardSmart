@@ -1,12 +1,13 @@
 import React from "react";
+import { TextField } from "@material-ui/core";
 
 const AddDeck = props => {
   return (
     <section>
       <div>
         Write your title here -->
-        <input
-          placeholder="Title"
+        <TextField
+          label="Title of Deck"
           name="title"
           value={props.cardSetUp.title}
           onChange={e =>

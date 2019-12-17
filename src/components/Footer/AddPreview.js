@@ -5,6 +5,7 @@ import FooterCategory from "./FooterCategory";
 import AddDeck from "./AddDeck";
 import ColorFan from "./ColorFan";
 import CustomCard from "./CustomCard";
+import FileUpload from "./FileUpload";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Drawer, IconButton } from "@material-ui/core";
@@ -122,7 +123,7 @@ const AddPreview = () => {
     selectedComponent = state.categories.map(category => {
       return (
         <FooterCategory
-          key={`categorykey${category.name}`}
+          key={`categorykey${category.title}`}
           category={category}
           setCompleted={setCompleted}
           setCard={setCard}
@@ -133,17 +134,9 @@ const AddPreview = () => {
   } else if (activeStep === 1) {
     selectedComponent = (
       <section>
-        <AddDeck
-          setCompleted={setCompleted}
-          setCard={setCard}
-          cardSetUp={cardSetUp}
-        />
-        <ColorFan
-          setCompleted={setCompleted}
-          setCard={setCard}
-          cardSetUp={cardSetUp}
-        />
-        <CreateNewFolder style={{ fontSize: "60px", color: "#455a64" }} />
+        <AddDeck setCard={setCard} cardSetUp={cardSetUp} />
+        <ColorFan setCard={setCard} cardSetUp={cardSetUp} />
+        <FileUpload setCard={setCard} cardSetUp={cardSetUp} />
       </section>
     );
   } else if (activeStep >= 2) {
