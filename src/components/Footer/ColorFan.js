@@ -5,7 +5,7 @@ const ColorFan = props => {
   return (
     <section id="color-fan-holder">
       <div
-        class="circle"
+        className="circle"
         style={{ backgroundColor: "#f56942" }}
         onClick={() =>
           props.setCard({
@@ -16,7 +16,7 @@ const ColorFan = props => {
         }
       />
       <div
-        class="circle"
+        className="circle"
         style={{ backgroundColor: "#f5f542" }}
         onClick={() =>
           props.setCard({
@@ -27,7 +27,7 @@ const ColorFan = props => {
         }
       />
       <div
-        class="circle"
+        className="circle"
         style={{ backgroundColor: "#42f56c" }}
         onClick={() =>
           props.setCard({
@@ -38,7 +38,7 @@ const ColorFan = props => {
         }
       />
       <div
-        class="circle"
+        className="circle"
         style={{ backgroundColor: "#428df5" }}
         onClick={() =>
           props.setCard({
@@ -49,7 +49,7 @@ const ColorFan = props => {
         }
       />
       <div
-        class="circle"
+        className="circle"
         style={{ backgroundColor: "#e042f5" }}
         onClick={() =>
           props.setCard({
@@ -60,7 +60,7 @@ const ColorFan = props => {
         }
       />
       <div
-        class="circle"
+        className="circle"
         style={{ backgroundColor: "#f54266" }}
         onClick={() =>
           props.setCard({
