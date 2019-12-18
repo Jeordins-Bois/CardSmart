@@ -3,9 +3,17 @@ require("dotenv").config();
 const express = require("express");
 const massive = require("massive");
 const session = require("express-session");
-const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, HOSTED_PORT } = process.env;
+const {
+  SERVER_PORT,
+  CONNECTION_STRING,
+  SESSION_SECRET,
+  HOSTED_PORT
+} = process.env;
 
 //import controllers go here
+const catCtrl = require("./categoryController");
+const topicCtrl = require("./topicController");
+const cardCtrl = require("./cardController");
 
 //good ol' part of the server that always feels left out
 const app = express();
@@ -30,8 +38,6 @@ app.use(
 //? Auth0 Middleware
 app.use(passport.initialize());
 app.use(passport.session());
-
-
 
 passport.use(
   new Auth0Strategy(
@@ -104,11 +110,23 @@ app.get(
   }
 );
 app.get("/api/user", (req, res) => {
-  console.log(req.session);
+  // console.log(req.session);
   if (req.user) {
     res.status(200).send(req.user);
   } else res.sendStatus(500);
 });
+
+//Category Endpoints
+app.get("/api/categories", catCtrl.getCategories);
+app.get("/api/category", catCtrl.getCategory);
+app.put("/api/category/:name", catCtrl.setCategory);
+
+app.get("/api/topics", topicCtrl.getTopics);
+app.get("/api/topic", topicCtrl.getTopic);
+app.get("/api/topic/:userId", topicCtrl.getSavedDecks);
+app.put("/api/topic/:name", topicCtrl.setTopic);
+
+app.get("/api/cards/:deckId", cardCtrl.getOriginalCards);
 
 //listen
 const port = SERVER_PORT || 3069;
