@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
 
 const Topic = props => {
   const classes = useStyles();
-  console.log(props);
+  // console.log(props);
   return (
     //   Link goes to "Topics" page of corresponding category
 

@@ -5,7 +5,7 @@ import { withRouter, Link } from "react-router-dom";
 //? Redux Imports
 import { connect } from "react-redux";
 import { checkSession } from "../../ducks/reducers/userReducer";
-import { setCategory, setTopic } from "../../ducks/reducers/headerReducer";
+import { getCategory, getTopic } from "../../ducks/reducers/headerReducer";
 
 //MaterialUi imports
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -21,6 +21,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import "./Header.css";
+import SavedDecks from "./SavedDecks";
 
 //this is all material ui stuff i couldn't get it to work in another file and then import it so it's here
 const drawerWidth = 275;
@@ -38,6 +39,8 @@ const useStyles = makeStyles(theme => ({
   },
   drawer: {
     width: drawerWidth,
+    display: "flex",
+    justifyContent: "center",
     flexShrink: 0
   },
   drawerPaper: {
@@ -80,8 +83,8 @@ const Header = props => {
 
   //? Checks Session on mount to see if user is logged in
   useEffect(() => {
-    props.setCategory();
-    props.setTopic();
+    props.getCategory();
+    props.getTopic();
     props.checkSession();
   }, []);
 
@@ -118,30 +121,44 @@ const Header = props => {
       );
     });
   };
-
+  console.log(props.ducks);
   //? Ternary to show the user logged in or the guest
-  if (props.ducks.userReducer.loggedIn) {
-    return <h1>{props.ducks.userReducer.user.username}</h1>;
-  } else {
-    return (
-      <>
-        <AppBar
-          position="static"
-          color="primary"
-          classes={{ root: classes.root }}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              edge="start"
-            >
-              <MenuIcon fontSize="large" />
-            </IconButton>
+  // if (props.ducks.userReducer.loggedIn) {
+  //   return <h1>{props.ducks.userReducer.user.username}</h1>;
+  // } else {
+  return (
+    <>
+      <AppBar
+        position="static"
+        color="primary"
+        classes={{ root: classes.root }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            edge="start"
+          >
+            <MenuIcon fontSize="large" />
+          </IconButton>
+          {props.ducks.userReducer.loggedIn ? (
             <Button
               variant="contained"
-              onClick={userLogin}
+              style={{
+                backgroundColor: `${theme.palette.secondary["A100"]}`,
+                position: "absolute",
+                zIndex: 1,
+                right: 0,
+                marginRight: "5vw"
+              }}
+            >
+              LOGOUT
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              onClick={() => userLogin()}
               style={{
                 backgroundColor: `${theme.palette.secondary["A100"]}`,
                 position: "absolute",
@@ -152,43 +169,51 @@ const Header = props => {
             >
               LOGIN
             </Button>
-          </Toolbar>
-          <Toolbar
-            variant="dense"
-            style={{ display: "flex", justifyContent: "center" }}
-          >
-            <Breadcrumbs
-              classes={{ separator: classes.breadcrumbSeparator }}
-              aria-label="breadcrumb"
-            >
-              <Link style={{ color: "#f5f5f5" }} to="/">
-                Home
-              </Link>
-              {getBreadcrumbContent()}
-            </Breadcrumbs>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          className={classes.drawer}
+          )}
+        </Toolbar>
+        <Toolbar
+          variant="dense"
+          style={{ display: "flex", justifyContent: "center" }}
         >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={toggleDrawer}>
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon fontSize="large" />
-              ) : (
-                <ChevronRightIcon fontSize="large" />
-              )}
-            </IconButton>
-          </div>
-        </Drawer>
-      </>
-    );
-  }
+          <Breadcrumbs
+            classes={{ separator: classes.breadcrumbSeparator }}
+            aria-label="breadcrumb"
+          >
+            <Link style={{ color: "#f5f5f5" }} to="/">
+              Home
+            </Link>
+            {getBreadcrumbContent()}
+          </Breadcrumbs>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+        className={classes.drawer}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={toggleDrawer}>
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon fontSize="large" />
+            ) : (
+              <ChevronRightIcon fontSize="large" />
+            )}
+          </IconButton>
+        </div>
+        <SavedDecks
+          user={
+            props.ducks.userReducer.loggedIn
+              ? props.ducks.userReducer.passport.user
+              : null
+          }
+        />
+      </Drawer>
+    </>
+  );
+  // }
 };
 
 const mapReduxToProps = ducks => {
@@ -199,6 +224,6 @@ const mapReduxToProps = ducks => {
 
 export default connect(mapReduxToProps, {
   checkSession,
-  setCategory,
-  setTopic
+  getCategory,
+  getTopic
 })(withRouter(Header));

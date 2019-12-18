@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import "./Deck.css";
 import { Paper } from "@material-ui/core";
 import Question from "./Question";
-import { makeStyles, useTheme } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,30 +17,19 @@ const useStyles = makeStyles(theme => ({
 const Deck = props => {
   const classes = useStyles();
   const [state, setState] = useState({
-    cards: [
-      {
-        id: 1,
-        question: "who was your mom?",
-        answer: "I don't know but I'm sure she's a nice lady"
-      },
-      {
-        id: 2,
-        question: "where is Tavas",
-        answer: "I don't know but I hope he's ok"
-      },
-      {
-        id: 3,
-        question: "what is the airspeed velocity of an unladen swallow?",
-        answer: "African or European?"
-      },
-      {
-        id: 4,
-        question: "how many of these do we need?",
-        answer: "Definitely a couple more"
-      }
-    ],
+    cards: [],
     side: "question"
   });
+
+  useEffect(() => {
+    axios
+      .get(`/api/cards/${props.match.params.deckId}`)
+      .then(res => {
+        console.log(res.data);
+        setState({ ...state, cards: res.data });
+      })
+      .catch(err => console.log("getCards error: " + err));
+  }, []);
 
   const handleFlip = () => {
     state.side === "question"

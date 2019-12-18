@@ -31,14 +31,9 @@ const useStyles = makeStyles(theme => ({
     borderTopLeftRadius: "4px",
     width: "100%",
     margin: 0,
-    padding: 0
-  },
-  avatar: {
-    position: "relative",
-    left: 5,
-    top: 5
-  },
-  title: {}
+    padding: 0,
+    height: "20%"
+  }
 }));
 //End of materialui stuff
 
@@ -49,7 +44,10 @@ const Category = props => {
     //   Link goes to "Topics" page of corresponding category
 
     <Container
-      style={{ backgroundImage: props.category.category_img }}
+      style={{
+        backgroundImage: props.category.category_img,
+        marginBottom: "5vh"
+      }}
       onClick={() => props.setCategory(props.category.category_name)}
       maxWidth="lg"
     >
