@@ -1,0 +1,12 @@
+#color-fan-holder{
+    margin-top: 10px;
+    width:  80%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.circle{
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}

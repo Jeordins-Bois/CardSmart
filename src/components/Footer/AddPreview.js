@@ -2,13 +2,16 @@
 import React, { useState, useEffect } from "react";
 import "./AddPreview.css";
 import FooterCategory from "./FooterCategory";
+import AddDeck from "./AddDeck";
+import ColorFan from "./ColorFan";
+import CustomCard from "./CustomCard";
+import FileUpload from "./FileUpload";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Drawer, IconButton } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import { height } from "@material-ui/system";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import Add from "@material-ui/icons/Add";
+import { ChevronLeft, Add, CreateNewFolder } from "@material-ui/icons";
 //!
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -56,11 +59,11 @@ function getSteps() {
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return "Select campaign settings...";
+      return "Select Category...";
     case 1:
-      return "What is an ad group anyways?";
+      return "Choose a title/accent color.";
     case 2:
-      return "This is the bit I really care about!";
+      return "Finalize your new Deck!";
     default:
       return "Unknown stepIndex";
   }
@@ -94,6 +97,10 @@ const AddPreview = () => {
   };
   //!
 
+  let [completed, setCompleted] = useState(false);
+
+  let selectedComponent;
+
   //?
   const [state, setState] = useState({
     categories: [
@@ -106,7 +113,40 @@ const AddPreview = () => {
       { title: "djkhaled", description: "another one", id: 3 }
     ]
   });
-  //?
+  //?\
+
+  let [cardSetUp, setCard] = useState({ category: "", title: "", color: "" });
+  console.log({ cardSetUp });
+
+  if (activeStep === 0) {
+    //! Controller for which component shown
+    selectedComponent = state.categories.map(category => {
+      return (
+        <FooterCategory
+          key={`categorykey${category.title}`}
+          category={category}
+          setCompleted={setCompleted}
+          setCard={setCard}
+          cardSetUp={cardSetUp}
+        />
+      );
+    });
+  } else if (activeStep === 1) {
+    selectedComponent = (
+      <section>
+        <AddDeck setCard={setCard} cardSetUp={cardSetUp} />
+        <ColorFan setCard={setCard} cardSetUp={cardSetUp} />
+        <FileUpload setCard={setCard} cardSetUp={cardSetUp} />
+      </section>
+    );
+  } else if (activeStep >= 2) {
+    selectedComponent = <CustomCard />;
+  }
+
+  if (cardSetUp.title && cardSetUp.color) {
+    completed = true;
+  }
+
   return (
     <>
       <AppBar
@@ -141,7 +181,7 @@ const AddPreview = () => {
       <Drawer anchor="bottom" open={open}>
         <div className={classes.fullList} role="presentation">
           <IconButton onClick={toggleDrawer}>
-            <ChevronLeftIcon fontSize="large" />
+            <ChevronLeft fontSize="large" />
             <div className={classes.root}></div>
           </IconButton>
           <Stepper
@@ -179,7 +219,11 @@ const AddPreview = () => {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleNext}
+                    onClick={function() {
+                      handleNext();
+                      setCompleted(false);
+                    }}
+                    disabled={!completed}
                   >
                     {activeStep === steps.length - 1 ? "Finish" : "Next"}
                   </Button>
@@ -187,15 +231,7 @@ const AddPreview = () => {
               </div>
             )}
           </div>
-          {/* //! */}
-          {state.categories.map(category => {
-            return (
-              <FooterCategory
-                key={`categorykey${category.name}`}
-                category={category}
-              />
-            );
-          })}
+          {selectedComponent}
         </div>
       </Drawer>
     </>
