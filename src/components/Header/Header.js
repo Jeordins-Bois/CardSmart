@@ -206,7 +206,7 @@ const Header = props => {
         <SavedDecks
           user={
             props.ducks.userReducer.loggedIn
-              ? props.ducks.userReducer.passport.user
+              ? props.ducks.userReducer.user
               : null
           }
         />

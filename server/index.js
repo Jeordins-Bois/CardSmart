@@ -12,6 +12,8 @@ const {
 
 //import controllers go here
 const catCtrl = require("./categoryController");
+const topicCtrl = require("./topicController");
+const cardCtrl = require("./cardController");
 
 //good ol' part of the server that always feels left out
 const app = express();
@@ -108,7 +110,7 @@ app.get(
   }
 );
 app.get("/api/user", (req, res) => {
-  console.log(req.session);
+  // console.log(req.session);
   if (req.user) {
     res.status(200).send(req.user);
   } else res.sendStatus(500);
@@ -119,11 +121,12 @@ app.get("/api/categories", catCtrl.getCategories);
 app.get("/api/category", catCtrl.getCategory);
 app.put("/api/category/:name", catCtrl.setCategory);
 
-app.get("/api/topics", catCtrl.getTopics);
-app.get("/api/topic", catCtrl.getTopic);
-app.put("/api/topic/:name", catCtrl.setTopic);
+app.get("/api/topics", topicCtrl.getTopics);
+app.get("/api/topic", topicCtrl.getTopic);
+app.get("/api/topic/:userId", topicCtrl.getSavedDecks);
+app.put("/api/topic/:name", topicCtrl.setTopic);
 
-app.get('/api/cards/:deckId', catCtrl.getOriginalCards);
+app.get("/api/cards/:deckId", cardCtrl.getOriginalCards);
 
 //listen
 const port = SERVER_PORT || 3069;
