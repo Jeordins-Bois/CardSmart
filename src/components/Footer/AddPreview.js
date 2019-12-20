@@ -4,14 +4,14 @@ import "./AddPreview.css";
 import FooterCategory from "./FooterCategory";
 import AddDeck from "./AddDeck";
 import ColorFan from "./ColorFan";
-import CustomCard from "./CustomCard";
+import ComprehendConnect from "./Comprehend/ComprehendConnect";
 import FileUpload from "./FileUpload";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Drawer, IconButton } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import { height } from "@material-ui/system";
-import { ChevronLeft, Add, CreateNewFolder } from "@material-ui/icons";
+import { ChevronLeft, Add, CreateNewFolder, WorkTwoTone } from "@material-ui/icons";
 //!
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -140,7 +140,7 @@ const AddPreview = () => {
       </section>
     );
   } else if (activeStep >= 2) {
-    selectedComponent = <CustomCard />;
+    selectedComponent = <ComprehendConnect />;
   }
 
   if (cardSetUp.title && cardSetUp.color) {
