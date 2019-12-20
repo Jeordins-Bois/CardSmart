@@ -55,6 +55,18 @@ const OrganizeResults = ({ entities, keyPhrases, textLength }) => {
     return arrCopy.filter(element => element.Score >= 0.8);
   };
 
+  const offSetDetermine = () => {
+    if (textLength < 200) {
+      return Math.round(textLength / 2);
+    } else {
+      return Math.round((textLength * 0.3) / 2);
+    }
+  };
+
+  const offSetMargin = offSetDetermine();
+
+  let updatedKeyPhrases = removeDupOrgRes(keyPhrases);
+
   //map over entity obj passing into removeDupOrgRes
   for (let key in entityObj) {
     entityObj[key] = removeDupOrgRes(entityObj[key]);
@@ -66,6 +78,8 @@ const OrganizeResults = ({ entities, keyPhrases, textLength }) => {
       organized.push(holder);
     }
   }
+
+  console.log(offSetMargin);
 
   function flashCardCreator(entity, type) {
     console.log("ey", entity, type);
@@ -98,15 +112,33 @@ const OrganizeResults = ({ entities, keyPhrases, textLength }) => {
     //*Entity .TEXT will be the basis of the flash card creator
 
     //?---------------------------------USING keyPhrases
-    //if any key phrases match.. ignore them
-    //check score > .75
     //if begin/end Offset is within 10% of text length (if less than 200 chars include all of the text)
+    let questionList = [];
+    for (let i = 0; i < updatedKeyPhrases.length; i++) {
+      if (
+        entity.BeginOffset - offSetMargin <= updatedKeyPhrases[i].EndOffset &&
+        entity.EndOffset - offSetMargin >= updatedKeyPhrases[i].BeginOffset
+      ) {
+        questionList.push(updatedKeyPhrases[i].Text);
+      }
+    }
+    // let questionList = updatedKeyPhrases.filter((phrase, index) => {
+    //   console.log('hit')
+    //   if (
+    //     entity.BeginOffset - offSetMargin <=  phrase.EndOffset &&
+    //     entity.EndOffset - offSetMargin >= phrase.BeginOffset
+    //   ) {
+    //     return phrase.Text;
+    //   }
+    // });
     //?---------------------------------
+
+    console.log({ questionList });
 
     return {
       dropdown: typeDetermine(type),
-      subject: entity.Text
-      // answer: object
+      subject: entity.Text,
+      answer: questionList
     };
   }
 
