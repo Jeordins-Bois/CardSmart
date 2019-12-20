@@ -5,7 +5,6 @@ import { Switch, Route } from "react-router-dom";
 import Categories from "./components/Categories/Categories";
 import Topics from "./components/Topics/Topics";
 import Deck from "./components/Deck/Deck";
-import comprehendDelete from "./comprehendDelete/Comprehend";
 
 export default (
   <Switch>
