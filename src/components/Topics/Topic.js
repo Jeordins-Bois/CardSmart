@@ -8,7 +8,8 @@ import {
   Card,
   CardHeader,
   CardContent,
-  Fab
+  Fab,
+  Typography
 } from "@material-ui/core";
 
 //? Redux imports
@@ -82,7 +83,16 @@ const Topic = props => {
             {" "}
           </Fab>
           <CardHeader classes={{ root: classes.headerRoot }} />
-          <CardContent>{props.topic.deck_name}</CardContent>
+          <CardContent>
+            <Typography variant="h6">{props.topic.deck_name}</Typography>
+          </CardContent>
+          <Typography
+            style={{ width: "100%", marginRight: "5px" }}
+            align="right"
+            variant="body1"
+          >
+            {props.topic.username}
+          </Typography>
           <div
             style={{ width: "100%", marginBottom: "5px", marginRight: "5px" }}
           >
