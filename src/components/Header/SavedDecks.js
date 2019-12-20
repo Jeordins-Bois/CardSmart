@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 //Material UI stuff
-import { Paper, Typography, Card, Fab, Avatar, List } from "@material-ui/core";
+import { Paper, Typography, Card, Avatar, List } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import axios from "axios";
@@ -36,7 +36,6 @@ const useStyles = makeStyles(theme => ({
     height: "60%"
   },
   list: {
-    overflow: "hidden",
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-end",
@@ -49,19 +48,40 @@ const useStyles = makeStyles(theme => ({
 const SavedDecks = props => {
   const classes = useStyles();
   const [state, setState] = useState({
-    decks: []
+    decks: [
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" },
+      { deck_id: 1, deck_name: "a" }
+    ]
   });
 
-  useEffect(() => {
-    if (props.user) {
-      axios
-        .get(`/api/topic/${props.user.user_id}`)
-        .then(res => setState({ decks: res.data }))
-        .catch(err => console.log("get saved decks error: " + err));
-    } else {
-      setState({ decks: [] });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (props.user) {
+  //     axios
+  //       .get(`/api/topic/${props.user.user_id}`)
+  //       .then(res => setState({ decks: res.data }))
+  //       .catch(err => console.log("get saved decks error: " + err));
+  //   } else {
+  //     setState({
+  //       decks: [
+
+  //       ]
+  //     });
+  //   }
+  // }, []);
 
   return (
     <>
@@ -76,13 +96,7 @@ const SavedDecks = props => {
           {props.user ? props.user.username : "log in to see your decks"}
         </Typography>
       </Paper>
-      <Paper
-        classes={{ root: classes.paperRoot }}
-        className={classes.decksPaper}
-      >
-        {props.user ? (
-          <>
-            <Typography
+      <Typography
               style={{
                 alignSelf: "flex-start",
                 position: "sticky",
@@ -93,6 +107,12 @@ const SavedDecks = props => {
             >
               SAVED DECKS
             </Typography>
+      <Paper
+        classes={{ root: classes.paperRoot }}
+        className={classes.decksPaper}
+      >
+        {props.user ? (
+    
             <List classes={{ root: classes.list }}>
               {state.decks.map((e, i) => {
                 return (
@@ -106,7 +126,6 @@ const SavedDecks = props => {
                 );
               })}{" "}
             </List>
-          </>
         ) : null}
       </Paper>
     </>

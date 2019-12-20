@@ -2,6 +2,7 @@ module.exports = {
   getTopics: async (req, res) => {
     const db = req.app.get("db");
     let topics = await db.get_topics();
+    console.log(topics);
     res.status(200).send(topics);
   },
   getTopic: (req, res) => {

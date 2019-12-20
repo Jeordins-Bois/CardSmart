@@ -1,9 +1,8 @@
 //Specific Question
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Deck.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Card, CardContent } from "@material-ui/core";
-import { Link, withRouter } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {

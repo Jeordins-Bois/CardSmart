@@ -1,5 +1,5 @@
 //Main header with 2 dropdowns
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { withRouter, Link, useLocation } from "react-router-dom";
 
 //? Redux Imports
@@ -16,8 +16,7 @@ import {
   Drawer,
   IconButton,
   Breadcrumbs,
-  Typography,
-  Avatar
+  Typography
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -120,7 +119,7 @@ const Header = props => {
     return strings.map((e, i) => {
       // console.log(e);
       return (
-        <Typography style={{ fontSize: "4vw" }}>
+        <Typography key={`breadcrumbkey${i}`} style={{ fontSize: "4vw" }}>
           <Link style={{ color: "#f5f5f5" }} to={`/${e}`}>
             {i === 0
               ? props.ducks.headerReducer.category
