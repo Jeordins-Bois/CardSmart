@@ -9,6 +9,7 @@ const Topics = () => {
   });
 
   useEffect(() => {
+
     axios
       .get("/api/topics")
       .then(res => setState({ ...state, topics: res.data }))

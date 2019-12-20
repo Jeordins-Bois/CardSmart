@@ -1,6 +1,6 @@
 //Main header with 2 dropdowns
 import React, { useEffect, useState } from "react";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, useLocation } from "react-router-dom";
 
 //? Redux Imports
 import { connect } from "react-redux";
@@ -15,7 +15,9 @@ import {
   Button,
   Drawer,
   IconButton,
-  Breadcrumbs
+  Breadcrumbs,
+  Typography,
+  Avatar
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -40,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     width: drawerWidth,
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     flexShrink: 0
   },
   drawerPaper: {
@@ -80,6 +82,12 @@ const Header = props => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const { pathname } = useLocation();
+
+  //? Scrolls to top of page on route change -- located in header bc it's always rendered
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   //? Checks Session on mount to see if user is logged in
   useEffect(() => {
@@ -111,17 +119,18 @@ const Header = props => {
     }, "category");
     return strings.map((e, i) => {
       // console.log(e);
-      console.log(props.ducks);
       return (
-        <Link style={{ color: "#f5f5f5" }} to={`/${e}`}>
-          {i === 0
-            ? props.ducks.headerReducer.category
-            : props.ducks.headerReducer.topic}
-        </Link>
+        <Typography style={{ fontSize: "4vw" }}>
+          <Link style={{ color: "#f5f5f5" }} to={`/${e}`}>
+            {i === 0
+              ? props.ducks.headerReducer.category
+              : props.ducks.headerReducer.topic}
+          </Link>
+        </Typography>
       );
     });
   };
-  console.log(props.ducks);
+  console.log(props.ducks.userReducer.user);
   //? Ternary to show the user logged in or the guest
   // if (props.ducks.userReducer.loggedIn) {
   //   return <h1>{props.ducks.userReducer.user.username}</h1>;
@@ -143,20 +152,24 @@ const Header = props => {
             <MenuIcon fontSize="large" />
           </IconButton>
           {props.ducks.userReducer.loggedIn ? (
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: `${theme.palette.secondary["A100"]}`,
-                position: "absolute",
-                zIndex: 1,
-                right: 0,
-                marginRight: "5vw"
-              }}
-            >
-              LOGOUT
-            </Button>
+            <>
+              <Button
+                size="large"
+                variant="contained"
+                style={{
+                  backgroundColor: `${theme.palette.secondary["A100"]}`,
+                  position: "absolute",
+                  zIndex: 1,
+                  right: 0,
+                  marginRight: "5vw"
+                }}
+              >
+                LOGOUT
+              </Button>
+            </>
           ) : (
             <Button
+              size="large"
               variant="contained"
               onClick={() => userLogin()}
               style={{
@@ -179,9 +192,11 @@ const Header = props => {
             classes={{ separator: classes.breadcrumbSeparator }}
             aria-label="breadcrumb"
           >
-            <Link style={{ color: "#f5f5f5" }} to="/">
-              Home
-            </Link>
+            <Typography style={{ fontSize: "4vw" }}>
+              <Link style={{ color: "#f5f5f5" }} to="/">
+                Home
+              </Link>
+            </Typography>
             {getBreadcrumbContent()}
           </Breadcrumbs>
         </Toolbar>
