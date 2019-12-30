@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 //Material UI stuff
 import { Paper, Typography, Card, Avatar, List } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 import axios from "axios";
@@ -13,8 +14,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: theme.palette.primary[700],
-    color: "#f5f5f5",
+    color: theme.palette.primary[700],
+    backgroundColor: "#f5f5f5",
     height: "20%"
   },
   savedDeck: {
@@ -49,73 +50,74 @@ const SavedDecks = props => {
   const classes = useStyles();
   const [state, setState] = useState({
     decks: [
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" },
-      { deck_id: 1, deck_name: "a" }
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" },
+      // { deck_id: 1, deck_name: "a" }
     ]
   });
 
-  // useEffect(() => {
-  //   if (props.user) {
-  //     axios
-  //       .get(`/api/topic/${props.user.user_id}`)
-  //       .then(res => setState({ decks: res.data }))
-  //       .catch(err => console.log("get saved decks error: " + err));
-  //   } else {
-  //     setState({
-  //       decks: [
-
-  //       ]
-  //     });
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (props.user) {
+      axios
+        .get(`/api/topic/${props.user.user_id}`)
+        .then(res => setState({ decks: res.data }))
+        .catch(err => console.log("get saved decks error: " + err));
+    } else {
+      setState({
+        decks: []
+      });
+    }
+  }, []);
 
   return (
     <>
-      <Paper classes={{ root: classes.paperRoot }}>
-        {props.user ? (
+      <Paper classes={{ root: classes.paperRoot }} square>
+        <Link to="/user" onClick={props.toggleDrawer}>
           <Avatar
             style={{ minHeight: "75px", minWidth: "75px" }}
             src={props.user.profile_img}
           />
-        ) : null}
+        </Link>
         <Typography style={{ width: "100%" }} align="center" variant="h5">
-          {props.user ? props.user.username : "log in to see your decks"}
+          {props.user.username}
         </Typography>
       </Paper>
-      <Typography
-              style={{
-                alignSelf: "flex-start",
-                position: "sticky",
-                top: 0,
-                textAlign: "center",
-                width: "100%"
-              }}
-            >
-              SAVED DECKS
-            </Typography>
+      {/* <Typography
+        style={{
+          margin: "10px 0",
+          alignSelf: "flex-start",
+          position: "sticky",
+          top: 0,
+          textAlign: "center",
+          width: "100%",
+          color: "#f5f5f5"
+        }}
+      >
+        SAVED DECKS
+      </Typography> */}
       <Paper
+        square
         classes={{ root: classes.paperRoot }}
         className={classes.decksPaper}
       >
         {props.user ? (
-    
-            <List classes={{ root: classes.list }}>
-              {state.decks.map((e, i) => {
-                return (
+          <List classes={{ root: classes.list }}>
+            {state.decks.map((e, i) => {
+              return (
+                <Link to={`/saved/${e.deck_id}`}>
                   <Card
                     classes={{ root: classes.savedDeck }}
                     key={`deckID${e.deck_id}`}
@@ -123,9 +125,10 @@ const SavedDecks = props => {
                     <Typography>{e.deck_name}</Typography>
                     <Avatar src={e.deck_img} />
                   </Card>
-                );
-              })}{" "}
-            </List>
+                </Link>
+              );
+            })}{" "}
+          </List>
         ) : null}
       </Paper>
     </>
