@@ -117,15 +117,25 @@ const SavedDecks = props => {
           <List classes={{ root: classes.list }}>
             {state.decks.map((e, i) => {
               return (
-                <Link to={`/saved/${e.deck_id}`}>
-                  <Card
-                    classes={{ root: classes.savedDeck }}
-                    key={`deckID${e.deck_id}`}
+                <Card
+                  classes={{ root: classes.savedDeck }}
+                  key={`deckID${e.deck_id}`}
+                >
+                  <Link
+                    onClick={props.toggleDrawer}
+                    to={`/saved/${e.deck_id}`}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "100%",
+                      color: "inherit",
+                      textDecoration: "none"
+                    }}
                   >
                     <Typography>{e.deck_name}</Typography>
                     <Avatar src={e.deck_img} />
-                  </Card>
-                </Link>
+                  </Link>
+                </Card>
               );
             })}{" "}
           </List>

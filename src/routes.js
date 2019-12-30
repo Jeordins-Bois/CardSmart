@@ -6,7 +6,7 @@ import Categories from "./components/Categories/Categories";
 import Topics from "./components/Topics/Topics";
 import Deck from "./components/Deck/Deck";
 import User from "./components/User/Profile";
-import SavedDeck from "./components/SavedDeck/SavedDeck";
+import OwnedDeck from "./components/OwnedDeck/OwnedDeck";
 // import comprehendDelete from "./comprehendDelete/Comprehend";
 
 export default (
@@ -15,7 +15,7 @@ export default (
     <Route exact path="/category/:topicId" component={Topics} />
     <Route exact path="/category/:topicId/:deckId" component={Deck} />
     <Route path="/user" component={User} />
-    <Route path="/saved/:deckId" component={SavedDeck} />
+    <Route path="/saved/:deckId/" component={OwnedDeck} />
     {/* <Route exact path="/comprehend" component={comprehendDelete} /> */}
   </Switch>
 );

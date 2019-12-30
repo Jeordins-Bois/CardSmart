@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,WAAW,CAAC;ECIV,OAAO,EAAE,IAAI;EACb,cAAc,EDJA,GAAG;ECKjB,eAAe,EDLI,MAAM;ECMzB,WAAW,EDNgB,MAAM;EACjC,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,GAAG;EACV,aAAa,EAAE,IAAI;CACpB;;AAED,AAAA,cAAc,CAAC;ECHb,OAAO,EAAE,IAAI;EACb,cAAc,EDGA,MAAM;ECFpB,eAAe,EDEO,MAAM;ECD5B,WAAW,EDCmB,MAAM;CACrC",
+    "sources": [
+        "OwnedCards.scss",
+        "../../sass/_vars.scss"
+    ],
+    "names": [],
+    "file": "OwnedCards.css"
+}

@@ -1,6 +1,7 @@
+//Full Deck of cards
 import React, { useState, useEffect } from "react";
-import Question from "../Deck/Question";
 import { Paper } from "@material-ui/core";
+import OwnedQuestion from "./OwnedQuestion";
 import { makeStyles } from "@material-ui/styles";
 import axios from "axios";
 
@@ -12,42 +13,37 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SavedDeck = props => {
+const OwnedDeck = props => {
+  const classes = useStyles();
   const [state, setState] = useState({
-    cards: [],
-    side: "question"
+    cards: []
   });
 
   useEffect(() => {
     axios
       .get(`/api/cards/${props.match.params.deckId}`)
       .then(res => {
+        // console.log(res.data);
         setState({ ...state, cards: res.data });
       })
       .catch(err => console.log("getCards error: " + err));
   }, []);
 
-  const handleFlip = () => {
-    state.side === "question"
-      ? setState({ ...state, side: "answer" })
-      : setState({ ...state, side: "question" });
-  };
-
   return (
     <>
-      <div style={{ height: "15vh", backgroundColor: "#f5f5f5" }}></div>
-      {state.cards.map(card => {
-        return (
-          <Question
-            side={state.side}
-            handleFlip={handleFlip}
-            key={`questionkey${card.card_id}`}
-            card={card}
-          />
-        );
-      })}
+      <Paper className={classes.root}></Paper>
+      <section className="container">
+        {state.cards.map(card => {
+          return (
+            <OwnedQuestion
+              key={`questionkey${card.question}`}
+              card={card}
+            />
+          );
+        })}
+      </section>
     </>
   );
 };
 
-export default SavedDeck;
+export default OwnedDeck;

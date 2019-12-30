@@ -17,8 +17,7 @@ const useStyles = makeStyles(theme => ({
 const Deck = props => {
   const classes = useStyles();
   const [state, setState] = useState({
-    cards: [],
-    side: "question"
+    cards: []
   });
 
   useEffect(() => {
@@ -31,24 +30,12 @@ const Deck = props => {
       .catch(err => console.log("getCards error: " + err));
   }, []);
 
-  const handleFlip = () => {
-    state.side === "question"
-      ? setState({ ...state, side: "answer" })
-      : setState({ ...state, side: "question" });
-  };
   return (
     <>
       <Paper className={classes.root}></Paper>
       <section className="container">
         {state.cards.map(card => {
-          return (
-            <Question
-              side={state.side}
-              handleFlip={handleFlip}
-              key={`questionkey${card.question}`}
-              card={card}
-            />
-          );
+          return <Question key={`questionkey${card.question}`} card={card} />;
         })}
       </section>
     </>
