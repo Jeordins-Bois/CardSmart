@@ -1,0 +1,12 @@
+@import "../../sass/vars";
+
+.owned-card {
+  @include flex(row, center, center);
+  height: 43vw;
+  width: 80%;
+  margin-bottom: 10vw;
+}
+
+.button-holder {
+  @include flex(column, center, center);
+}

@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const massive = require("massive");
 const session = require("express-session");
+const cron = require("node-cron");
 const {
   SERVER_PORT,
   CONNECTION_STRING,
@@ -127,6 +128,17 @@ app.get("/api/topic/:userId", topicCtrl.getSavedDecks);
 app.put("/api/topic/:name", topicCtrl.setTopic);
 
 app.get("/api/cards/:deckId", cardCtrl.getOriginalCards);
+
+//Runs a job at 12:00 midnight mountain timezone every sunday
+cron.schedule(
+  "0 0 * * 0",
+  () => {
+    db.clean_up();
+  },
+  {
+    timezone: "America/Denver"
+  }
+);
 
 //listen
 const port = SERVER_PORT || 3069;

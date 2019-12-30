@@ -2,7 +2,7 @@ module.exports = {
   getTopics: async (req, res) => {
     const db = req.app.get("db");
     let topics = await db.get_topics();
-    console.log(topics);
+    // console.log(topics);
     res.status(200).send(topics);
   },
   getTopic: (req, res) => {
@@ -19,7 +19,7 @@ module.exports = {
     const { userId } = req.params;
     const db = req.app.get("db");
     let decks = await db.get_saved_decks(+userId);
-    console.log(decks);
+    // console.log(decks);
     decks ? res.status(200).send(decks) : res.sendStatus(404);
   }
 };
