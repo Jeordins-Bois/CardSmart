@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import CreateCards from "./CreateCards";
+import OrganizeResults2 from "./OrganizeResults2";
 
 const OrganizeResults = ({ entities, keyPhrases, textLength }) => {
   console.log("%centities", "color:red;", entities);
   console.log("%cKeyPhrases", "color:blue;", keyPhrases);
 
-  const organized = [];
+  const [organized, setOrganized] = useState([]);
+ 
 
   let PERSON = entities.filter(entity => entity.Type === "PERSON");
   let DATE = entities.filter(entity => entity.Type === "DATE");
@@ -16,18 +18,7 @@ const OrganizeResults = ({ entities, keyPhrases, textLength }) => {
   let TITLE = entities.filter(entity => entity.Type === "TITLE");
   let OTHER = entities.filter(entity => entity.Type === "OTHER");
 
-  console.log(textLength);
-
-  console.log({
-    PERSON,
-    DATE,
-    EVENT,
-    LOCATION,
-    ORGANIZATION,
-    QUANTITY,
-    TITLE,
-    OTHER
-  });
+  console.log({ organized });
 
   const entityObj = {
     PERSON,
@@ -79,10 +70,7 @@ const OrganizeResults = ({ entities, keyPhrases, textLength }) => {
     }
   }
 
-  console.log(offSetMargin);
-
   function flashCardCreator(entity, type) {
-    console.log("ey", entity, type);
     const dropdown = {
       person: ["Who is", "Who was", "Why is this person important:"],
       date: ["What Happened on", "What is significant about "],
@@ -133,8 +121,6 @@ const OrganizeResults = ({ entities, keyPhrases, textLength }) => {
     // });
     //?---------------------------------
 
-    console.log({ questionList });
-
     return {
       dropdown: typeDetermine(type),
       subject: entity.Text,
@@ -146,19 +132,9 @@ const OrganizeResults = ({ entities, keyPhrases, textLength }) => {
   //pass result to next component to display
 
   return (
-    <div>
-      {organized.map(subject => {
-        {
-          return (
-            <div>
-              {subject.map((card, i2) => {
-                return <CreateCards card={card} key={`Card ${i2}`} />;
-              })}
-            </div>
-          );
-        }
-      })}
-    </div>
+    <OrganizeResults2
+      organized={organized}
+    />
   );
 };
 

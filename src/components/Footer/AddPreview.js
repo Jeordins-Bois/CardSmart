@@ -7,6 +7,8 @@ import ColorFan from "./ColorFan";
 import ComprehendConnect from "./Comprehend/ComprehendConnect";
 import FileUpload from "./FileUpload";
 
+import axios from "axios";
+
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Drawer, IconButton } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
@@ -106,24 +108,30 @@ const AddPreview = () => {
 
   let selectedComponent;
 
-  //?
   const [state, setState] = useState({
-    categories: [
-      {
-        title: "dummy thicc data",
-        description: "I'm trying to code, but the clap of this card's etc.",
-        id: 1
-      },
-      { title: "category 2", description: "The boring one", id: 2 },
-      { title: "djkhaled", description: "another one", id: 3 }
-    ]
+    categories: []
   });
+
+  useEffect(() => {
+    axios
+      .get("/api/categories")
+      .then(res => {
+        setState({ categories: res.data });
+      })
+      .catch(err => "getCategories error: " + err);
+  }, []);
+  //?
+
   //?\
 
-  let [cardSetUp, setCard] = useState({ category: "", title: "", color: "" });
-  console.log({ cardSetUp });
+  let [cardSetUp, setCard] = useState({
+    category: "",
+    title: "",
+    color: "",
+    notes: ""
+  });
 
-  if (activeStep === 0) {
+  if (activeStep === 0 && state.categories.length !== 0) {
     //! Controller for which component shown
     selectedComponent = state.categories.map(category => {
       return (
@@ -145,7 +153,7 @@ const AddPreview = () => {
       </section>
     );
   } else if (activeStep >= 2) {
-    selectedComponent = <ComprehendConnect />;
+    selectedComponent = <ComprehendConnect cardSetUp={cardSetUp} />;
   }
 
   if (cardSetUp.title && cardSetUp.color) {

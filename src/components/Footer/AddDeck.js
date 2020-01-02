@@ -14,7 +14,8 @@ const AddDeck = props => {
             props.setCard({
               category: props.cardSetUp.category,
               title: e.target.value,
-              color: props.cardSetUp.color
+              color: props.cardSetUp.color,
+              notes: props.cardSetUp.notes
             })
           }
         />
