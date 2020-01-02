@@ -4,9 +4,9 @@ import OrganizeResults from "./OrganizeResults";
 
 import { CircularProgress } from "@material-ui/core";
 
-import text from "../info";
-
-const CustomCard = () => {
+const CustomCard = ({ cardSetUp }) => {
+  const text = cardSetUp.notes;
+  console.log(cardSetUp)
   const config = require("../../../Config");
 
   const [keyPhrases, setKeyPhrases] = useState({});

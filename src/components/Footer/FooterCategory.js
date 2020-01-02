@@ -9,11 +9,12 @@ const FooterCategory = props => {
         props.setCard({
           category: props.category,
           title: props.cardSetUp.title,
-          color: props.cardSetUp.color
+          color: props.cardSetUp.color,
+          notes: props.cardSetUp.notes
         });
       }}
     >
-      {props.category.title}
+      {props.category.category_name}
     </h1>
   );
 };

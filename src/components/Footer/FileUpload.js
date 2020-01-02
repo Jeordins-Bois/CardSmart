@@ -2,24 +2,32 @@ import React, { useState } from "react";
 import { CreateNewFolder, Cancel } from "@material-ui/icons";
 import { TextField } from "@material-ui/core";
 
-const FileUpload = () => {
+const FileUpload = props => {
   let [showDropdown, changeDropdown] = useState(false);
+  console.log(props);
 
   const handleClick = () => {
     changeDropdown(!showDropdown);
-    console.log(showDropdown);
   };
 
   let inputComponent = (
-    <div style={{marginTop: '25px'}}>
+    <div style={{ marginTop: "25px" }}>
       <TextField
         id="standard-basic"
         label="Notes to Convert"
         variant="outlined"
         multiline={true}
-        rows='10'
-        size='large'
-        style={{width: "80%"}}
+        rows="10"
+        size="large"
+        style={{ width: "80%" }}
+        onChange={e =>
+          props.setCard({
+            category: props.cardSetUp.category,
+            title: props.cardSetUp.title,
+            color: props.cardSetUp.color,
+            notes: e.target.value
+          })
+        }
       />
       <Cancel onClick={() => handleClick()} style={{ fontSize: "30px" }} />
     </div>

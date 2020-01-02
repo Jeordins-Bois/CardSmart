@@ -11,7 +11,8 @@ const ColorFan = props => {
           props.setCard({
             category: props.cardSetUp.category,
             title: props.cardSetUp.title,
-            color: "#f56942"
+            color: "#f56942",
+            notes: props.cardSetUp.notes
           })
         }
       />
@@ -22,7 +23,8 @@ const ColorFan = props => {
           props.setCard({
             category: props.cardSetUp.category,
             title: props.cardSetUp.title,
-            color: "#f5f542"
+            color: "#f5f542",
+            notes: props.cardSetUp.notes
           })
         }
       />
@@ -33,7 +35,8 @@ const ColorFan = props => {
           props.setCard({
             category: props.cardSetUp.category,
             title: props.cardSetUp.title,
-            color: "#42f56c"
+            color: "#42f56c",
+            notes: props.cardSetUp.notes
           })
         }
       />
@@ -44,7 +47,8 @@ const ColorFan = props => {
           props.setCard({
             category: props.cardSetUp.category,
             title: props.cardSetUp.title,
-            color: "#428df5"
+            color: "#428df5",
+            notes: props.cardSetUp.notes
           })
         }
       />
@@ -55,7 +59,8 @@ const ColorFan = props => {
           props.setCard({
             category: props.cardSetUp.category,
             title: props.cardSetUp.title,
-            color: "#e042f5"
+            color: "#e042f5",
+            notes: props.cardSetUp.notes
           })
         }
       />
@@ -66,7 +71,8 @@ const ColorFan = props => {
           props.setCard({
             category: props.cardSetUp.category,
             title: props.cardSetUp.title,
-            color: "#f54266"
+            color: "#f54266",
+            notes: props.cardSetUp.notes
           })
         }
       />

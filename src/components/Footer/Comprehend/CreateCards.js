@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
+import { Cancel } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -17,11 +18,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CreateCards({ card }) {
+export default function CreateCards({
+  card,
+  categoryIndex,
+  questionIndex,
+  deleteItem
+}) {
   const classes = useStyles();
   const [question, setQuestion] = React.useState("");
   const [answer, setAnswer] = React.useState("");
   const [open, setOpen] = React.useState(false);
+
+  console.log(card);
 
   const handleChange = event => {
     setQuestion(event.target.value);
@@ -46,8 +54,6 @@ export default function CreateCards({ card }) {
   const handleOpenAnswer = () => {
     setOpen(true);
   };
-
-  console.log(card);
 
   return (
     <div>
@@ -76,6 +82,10 @@ export default function CreateCards({ card }) {
         </Select>
       </FormControl>
       {card.subject}
+      <Cancel
+        onClick={() => deleteItem(categoryIndex, questionIndex)}
+        style={{ fontSize: "30px" }}
+      />
       {/* <FormControl className={classes.formControl}>
         <InputLabel id="demo-controlled-open-select-label">answer</InputLabel>
         <Select
