@@ -6,6 +6,7 @@ import AddDeck from "./AddDeck";
 import ColorFan from "./ColorFan";
 import ComprehendConnect from "./Comprehend/ComprehendConnect";
 import FileUpload from "./FileUpload";
+import Finalize from "./Finalize/Finalize";
 
 import axios from "axios";
 
@@ -60,7 +61,7 @@ const useStyles = makeStyles({
 
 //!
 function getSteps() {
-  return ["Category", "Content", "Submit"];
+  return ["Category", "Content", "Questions", "Finalize"];
 }
 
 function getStepContent(stepIndex) {
@@ -70,7 +71,9 @@ function getStepContent(stepIndex) {
     case 1:
       return "Choose a title/accent color.";
     case 2:
-      return "Finalize your new Deck!";
+      return "Approve Deck";
+    case 3:
+      return "Finalize Cards";
     default:
       return "Unknown stepIndex";
   }
@@ -152,8 +155,10 @@ const AddPreview = () => {
         <FileUpload setCard={setCard} cardSetUp={cardSetUp} />
       </section>
     );
-  } else if (activeStep >= 2) {
+  } else if (activeStep === 2) {
     selectedComponent = <ComprehendConnect cardSetUp={cardSetUp} />;
+  } else if (activeStep >= 3) {
+    selectedComponent = <Finalize cardSetUp={cardSetUp} />;
   }
 
   if (cardSetUp.title && cardSetUp.color) {
