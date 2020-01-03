@@ -29,7 +29,7 @@ export default function CreateCards({
   const [answer, setAnswer] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
-  console.log(card);
+  console.log(question);
 
   const handleChange = event => {
     setQuestion(event.target.value);

@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import CreateCards from "./CreateCards";
+import { connect } from "react-redux";
+import { setQuestions } from "../../../ducks/reducers/comprehendReducer";
 
-const OrganizeResults2 = ({ organized }) => {
+import Button from "@material-ui/core/Button";
+
+const OrganizeResults2 = props => {
   let [reRender, initializeRender] = useState(0);
 
   const deleteItem = (categoryIndex, questionIndex) => {
     console.log("hit", categoryIndex, questionIndex);
-    organized[categoryIndex].splice(questionIndex, 1);
+    props.organized[categoryIndex].splice(questionIndex, 1);
     initializeRender(reRender + 1);
-    console.log(organized);
+    console.log(props.organized);
   };
 
+  console.log(props.reduxState.comprehendReducer);
   return (
     <div>
-      {organized.map((subject, categoryIndex) => {
+      {props.organized.map((subject, categoryIndex) => {
         console.log(subject);
         {
           return (
@@ -33,8 +38,17 @@ const OrganizeResults2 = ({ organized }) => {
           );
         }
       })}
+      <Button onClick={() => props.setQuestions(props.organized)}>Save</Button>
     </div>
   );
 };
 
-export default OrganizeResults2;
+const mapReduxStateToProps = reduxState => {
+  return {
+    reduxState
+  };
+};
+
+export default connect(mapReduxStateToProps, { setQuestions })(
+  OrganizeResults2
+);
