@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => ({
 const OwnedDeck = props => {
   const classes = useStyles();
   const [state, setState] = useState({
-    cards: []
+    cards: [],
+    userId: null
   });
 
   useEffect(() => {
@@ -27,7 +28,13 @@ const OwnedDeck = props => {
         setState({ ...state, cards: res.data });
       })
       .catch(err => console.log("getCards error: " + err));
+    axios
+      .get("/api/user")
+      .then(res => setState({ ...state, userId: res.data.user_id }))
+      .catch(err => console.log(err));
   }, []);
+
+  //! Will have to check if the current user logged in is the creator of the deck... cards[0].deck_id === userId
 
   return (
     <>
@@ -35,10 +42,7 @@ const OwnedDeck = props => {
       <section className="container">
         {state.cards.map(card => {
           return (
-            <OwnedQuestion
-              key={`questionkey${card.question}`}
-              card={card}
-            />
+            <OwnedQuestion key={`questionkey${card.question}`} card={card} />
           );
         })}
       </section>

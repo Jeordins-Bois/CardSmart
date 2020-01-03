@@ -8,5 +8,5 @@
 }
 
 .button-holder {
-  @include flex(column, center, center);
+  @include flex(row, space-evenly, center);
 }
