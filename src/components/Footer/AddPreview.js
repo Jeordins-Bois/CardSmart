@@ -37,6 +37,7 @@ const useStyles = makeStyles({
     // marginRight: theme.spacing(1)
   },
   instructions: {
+    width: "100%"
     // marginTop: theme.spacing(1),
     // marginBottom: theme.spacing(1)
   },
@@ -67,15 +68,15 @@ function getSteps() {
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return "Select Category...";
+      return "SELECT CATEGORY...";
     case 1:
-      return "Choose a title/accent color.";
+      return "CHOOSE A TITLE/ACCENT COLOR.";
     case 2:
-      return "Approve Deck";
+      return "APPROVE DECK";
     case 3:
-      return "Finalize Cards";
+      return "FINALIZE CARDS";
     default:
-      return "Unknown stepIndex";
+      return "UNKNOWN STEP INDEX";
   }
 }
 //!
@@ -109,10 +110,19 @@ const AddPreview = () => {
 
   let [completed, setCompleted] = useState(false);
 
+  let [selected, setSelected] = useState(null);
+
   let selectedComponent;
 
   const [state, setState] = useState({
     categories: []
+  });
+
+  let [cardSetUp, setCard] = useState({
+    category: "",
+    title: "",
+    color: "",
+    notes: ""
   });
 
   useEffect(() => {
@@ -123,33 +133,51 @@ const AddPreview = () => {
       })
       .catch(err => "getCategories error: " + err);
   }, []);
-  //?
 
-  //?\
-
-  let [cardSetUp, setCard] = useState({
-    category: "",
-    title: "",
-    color: "",
-    notes: ""
-  });
+  const selectCategory = index => {
+    setSelected(index);
+  };
 
   if (activeStep === 0 && state.categories.length !== 0) {
     //! Controller for which component shown
-    selectedComponent = state.categories.map(category => {
-      return (
-        <FooterCategory
-          key={`categorykey${category.title}`}
-          category={category}
-          setCompleted={setCompleted}
-          setCard={setCard}
-          cardSetUp={cardSetUp}
-        />
-      );
+    selectedComponent = state.categories.map((category, index) => {
+      if (selected === index) {
+        return (
+          <FooterCategory
+            index={index}
+            selectCategory={selectCategory}
+            selected={true}
+            key={`categorykey${category.title}`}
+            category={category}
+            setCompleted={setCompleted}
+            setCard={setCard}
+            cardSetUp={cardSetUp}
+          />
+        );
+      } else {
+        return (
+          <FooterCategory
+            index={index}
+            selectCategory={selectCategory}
+            selected={false}
+            key={`categorykey${category.title}`}
+            category={category}
+            setCompleted={setCompleted}
+            setCard={setCard}
+            cardSetUp={cardSetUp}
+          />
+        );
+      }
     });
   } else if (activeStep === 1) {
     selectedComponent = (
-      <section>
+      <section
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}
+      >
         <AddDeck setCard={setCard} cardSetUp={cardSetUp} />
         <ColorFan setCard={setCard} cardSetUp={cardSetUp} />
         <FileUpload setCard={setCard} cardSetUp={cardSetUp} />
@@ -216,18 +244,33 @@ const AddPreview = () => {
           <div>
             {activeStep === steps.length ? (
               <div>
-                <Typography className={classes.instructions}>
+                <Typography
+                  align="center"
+                  variant="h6"
+                  className={classes.instructions}
+                >
                   All steps completed
                 </Typography>
                 <Button onClick={handleReset}>Reset</Button>
               </div>
             ) : (
               <div>
-                <Typography className={classes.instructions}>
+                <Typography
+                  align="center"
+                  variant="h6"
+                  className={classes.instructions}
+                >
                   {getStepContent(activeStep)}
                 </Typography>
-                <div>
+                <div
+                  style={{
+                    marginTop: "2vh",
+                    display: "flex",
+                    justifyContent: "space-around"
+                  }}
+                >
                   <Button
+                    variant="contained"
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     className={classes.backButton}

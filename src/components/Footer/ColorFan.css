@@ -1,6 +1,6 @@
 #color-fan-holder{
     margin-top: 10px;
-    width:  80%;
+    width:  100%;
     display: flex;
     justify-content: space-evenly;
 }
