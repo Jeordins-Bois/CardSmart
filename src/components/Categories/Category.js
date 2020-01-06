@@ -45,7 +45,6 @@ const Category = props => {
 
     <Container
       style={{
-        backgroundImage: props.category.category_img,
         marginBottom: "5vh"
       }}
       onClick={() => props.setCategory(props.category.category_name)}
@@ -66,6 +65,15 @@ const Category = props => {
             classes={{ root: classes.headerRoot }}
             className="category-box-text"
             title={props.category.category_name}
+          />
+          <div
+            style={{
+              height: "50%",
+              width: "50%",
+              backgroundImage: `url(${props.category.category_img})`,
+              backgroundSize: "cover",
+              backgroundPostion: "center"
+            }}
           />
           <CardContent>{props.category.category_description}</CardContent>
         </Card>

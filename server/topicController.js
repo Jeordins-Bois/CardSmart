@@ -1,7 +1,9 @@
 module.exports = {
   getTopics: async (req, res) => {
+    const { topicId } = req.params;
+    console.log(topicId);
     const db = req.app.get("db");
-    let topics = await db.get_topics();
+    let topics = await db.get_topics(topicId);
     // console.log(topics);
     res.status(200).send(topics);
   },

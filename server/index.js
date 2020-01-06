@@ -121,8 +121,7 @@ app.get("/api/user", (req, res) => {
 app.get("/api/categories", catCtrl.getCategories);
 app.get("/api/category", catCtrl.getCategory);
 app.put("/api/category/:name", catCtrl.setCategory);
-
-app.get("/api/topics", topicCtrl.getTopics);
+app.get("/api/topics/:topicId", topicCtrl.getTopics);
 app.get("/api/topic", topicCtrl.getTopic);
 app.get("/api/topic/:userId", topicCtrl.getSavedDecks);
 app.put("/api/topic/:name", topicCtrl.setTopic);
