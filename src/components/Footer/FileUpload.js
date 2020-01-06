@@ -11,7 +11,9 @@ const FileUpload = props => {
   };
 
   let inputComponent = (
-    <div style={{ marginTop: "25px" }}>
+    <div
+      style={{ marginTop: "25px", justifySelf: "center", alignSelf: "center" }}
+    >
       <TextField
         id="standard-basic"
         label="Notes to Convert"
@@ -36,7 +38,7 @@ const FileUpload = props => {
   return (
     <div>
       {showDropdown ? (
-        <div>{inputComponent}</div>
+        <div style={{ display: "flex" }}>{inputComponent}</div>
       ) : (
         <div>
           <CreateNewFolder

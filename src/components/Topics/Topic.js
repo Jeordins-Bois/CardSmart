@@ -93,18 +93,6 @@ const Topic = props => {
           >
             {props.topic.username}
           </Typography>
-          <div
-            style={{ width: "100%", marginBottom: "5px", marginRight: "5px" }}
-          >
-            <p
-              style={{
-                width: "100%",
-                textAlign: "right"
-              }}
-            >
-              downloads
-            </p>
-          </div>
         </Card>
       </Link>
     </Container>
