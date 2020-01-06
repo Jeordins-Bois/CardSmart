@@ -114,7 +114,7 @@ app.get("/api/user", (req, res) => {
   // console.log(req.session);
   if (req.user) {
     res.status(200).send(req.user);
-  } else res.sendStatus(500);
+  } else res.sendStatus(404);
 });
 
 //Category Endpoints
