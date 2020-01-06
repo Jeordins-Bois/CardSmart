@@ -1,12 +1,17 @@
-#color-fan-holder{
-    margin-top: 10px;
-    width:  100%;
-    display: flex;
-    justify-content: space-evenly;
+#color-fan-holder {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.circle{
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
+.circle {
+  box-sizing: border-box;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+.selected {
+  border: 1px solid black;
 }
