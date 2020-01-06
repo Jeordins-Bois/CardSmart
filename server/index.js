@@ -114,15 +114,14 @@ app.get("/api/user", (req, res) => {
   // console.log(req.session);
   if (req.user) {
     res.status(200).send(req.user);
-  } else res.sendStatus(500);
+  } else res.sendStatus(404);
 });
 
 //Category Endpoints
 app.get("/api/categories", catCtrl.getCategories);
 app.get("/api/category", catCtrl.getCategory);
 app.put("/api/category/:name", catCtrl.setCategory);
-
-app.get("/api/topics", topicCtrl.getTopics);
+app.get("/api/topics/:topicId", topicCtrl.getTopics);
 app.get("/api/topic", topicCtrl.getTopic);
 app.get("/api/topic/:userId", topicCtrl.getSavedDecks);
 app.put("/api/topic/:name", topicCtrl.setTopic);

@@ -3,15 +3,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Topic from "./Topic";
 
-const Topics = () => {
+const Topics = props => {
   const [state, setState] = useState({
     topics: []
   });
 
   useEffect(() => {
-
     axios
-      .get("/api/topics")
+      .get(`/api/topics/${props.match.params.topicId}`)
       .then(res => setState({ ...state, topics: res.data }))
       .catch(err => "getTopics error: " + err);
   }, []);
