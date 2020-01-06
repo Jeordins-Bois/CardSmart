@@ -12,7 +12,7 @@ const FileUpload = props => {
 
   let inputComponent = (
     <div
-      style={{ marginTop: "25px", justifySelf: "center", alignSelf: "center" }}
+      style={{ marginTop: "25px", placeSelf: "center", position: "relative" }}
     >
       <TextField
         id="standard-basic"
@@ -21,7 +21,7 @@ const FileUpload = props => {
         multiline={true}
         rows="10"
         size="large"
-        style={{ width: "80%" }}
+        style={{ width: "100%" }}
         onChange={e =>
           props.setCard({
             category: props.cardSetUp.category,
@@ -31,7 +31,15 @@ const FileUpload = props => {
           })
         }
       />
-      <Cancel onClick={() => handleClick()} style={{ fontSize: "30px" }} />
+      <Cancel
+        onClick={() => handleClick()}
+        style={{
+          fontSize: "30px",
+          position: "absolute",
+          right: "-15px",
+          top: "-15px"
+        }}
+      />
     </div>
   );
 
