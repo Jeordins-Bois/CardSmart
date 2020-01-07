@@ -116,42 +116,55 @@ const Header = props => {
     setOpen(!open);
   };
   //! This was working until I started doing user profile stuff and it broke so i commented it out
-  // const getBreadcrumbContent = () => {
-  //   const path = props.location.pathname.split("/");
+  const getBreadcrumbContent = () => {
+    const path = props.location.pathname.split("/");
+    console.log(path);
 
-  //   if (path[1] === "user") {
-  //     return (
-  //       <Typography style={{ fontSize: "4vw" }}>
-  //         <Link style={{ color: "#f5f5f5" }} to={`/user`}>
-  //           Profile
-  //         </Link>
-  //       </Typography>
-  //     );
-  //   } else {
-  //     // const path = [1, 2, 3];
-  //     path.splice(0, 2);
+    if (path[1] === "saved") {
+      return (
+        <Typography
+          style={{
+            fontSize: "4vw",
+            color: "#f5f5f5",
+            textDecoration: "underline"
+          }}
+        >
+          Saved Deck
+        </Typography>
+      );
+    } else if (path[1] === "user") {
+      return (
+        <Typography style={{ fontSize: "4vw" }}>
+          <Link style={{ color: "#f5f5f5" }} to={`/user`}>
+            Profile
+          </Link>
+        </Typography>
+      );
+    } else {
+      // const path = [1, 2, 3];
+      path.splice(0, 2);
 
-  //     const strings = [];
-  //     path.reduce((a, e) => {
-  //       const string = a + "/" + e;
-  //       strings.push(string);
-  //       // console.log(string);
-  //       return string;
-  //     }, "category");
-  //     return strings.map((e, i) => {
-  //       // console.log(e);
-  //       return (
-  //         <Typography key={`breadcrumbkey${i}`} style={{ fontSize: "4vw" }}>
-  //           <Link style={{ color: "#f5f5f5" }} to={`/${e}`}>
-  //             {i === 0
-  //               ? props.ducks.headerReducer.category
-  //               : props.ducks.headerReducer.topic}
-  //           </Link>
-  //         </Typography>
-  //       );
-  //     });
-  //   }
-  // };
+      const strings = [];
+      path.reduce((a, e) => {
+        const string = a + "/" + e;
+        strings.push(string);
+        // console.log(string);
+        return string;
+      }, "category");
+      return strings.map((e, i) => {
+        // console.log(e);
+        return (
+          <Typography key={`breadcrumbkey${i}`} style={{ fontSize: "4vw" }}>
+            <Link style={{ color: "#f5f5f5" }} to={`/${e}`}>
+              {i === 0
+                ? props.ducks.headerReducer.category
+                : props.ducks.headerReducer.topic}
+            </Link>
+          </Typography>
+        );
+      });
+    }
+  };
   //? Ternary to show the user logged in or the guest
   // if (props.ducks.userReducer.loggedIn) {
   //   return <h1>{props.ducks.userReducer.user.username}</h1>;
@@ -213,7 +226,7 @@ const Header = props => {
           variant="dense"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          {/* <Breadcrumbs
+          <Breadcrumbs
             classes={{ separator: classes.breadcrumbSeparator }}
             aria-label="breadcrumb"
           >
@@ -223,7 +236,7 @@ const Header = props => {
               </Link>
             </Typography>
             {getBreadcrumbContent()}
-          </Breadcrumbs> */}
+          </Breadcrumbs>
         </Toolbar>
       </AppBar>
       <Drawer
