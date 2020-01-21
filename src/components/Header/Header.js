@@ -22,6 +22,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import EmptyHeader from "./EmptyHeader";
 import "./Header.css";
 import SavedDecks from "./SavedDecks";
 
@@ -76,11 +77,12 @@ const useStyles = makeStyles(theme => ({
     color: "#f5f5f5"
   },
   spaceHolder: {
-    backgroundColor: "#f5f5f5",
     color: theme.palette.primary[700],
-    margin: "100% 0",
     padding: "5px",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    height: "20vh",
+    width: "100%",
+    border: "solid black .5px"
   }
 }));
 //End of materialui stuff
@@ -268,11 +270,7 @@ const Header = props => {
             user={props.ducks.userReducer.user}
           />
         ) : (
-          <Paper className={classes.spaceHolder}>
-            <Typography variant="h4" align="center">
-              {"Log in or create an account to see your saved decks!"}
-            </Typography>
-          </Paper>
+          <EmptyHeader classes={classes} />
         )}
       </Drawer>
     </>
