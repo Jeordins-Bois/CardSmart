@@ -116,7 +116,6 @@ app.get("/api/user", (req, res) => {
     res.status(200).send(req.user);
   } else res.sendStatus(404);
 });
-
 //Category Endpoints
 app.get("/api/categories", catCtrl.getCategories);
 app.get("/api/category", catCtrl.getCategory);
