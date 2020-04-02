@@ -10,94 +10,32 @@ const clearSelect = () => {
 
 const ColorFan = props => {
   const [selected, setSelected] = React.useState("");
+  const [colors, setColors] = React.useState([
+    { id: "orange", color: "#ff9800" },
+    { id: "yellow", color: "#ffeb3b" },
+    { id: "green", color: "#4caf50" },
+    { id: "blue", color: "#2196f3" },
+    { id: "purple", color: "#9c27b0" },
+    { id: "red", color: "#f44336" },
+  ]);
+
   clearSelect();
   if (selected) document.getElementById(selected).classList.add("selected");
+
   return (
     <section id="color-fan-holder">
-      <div
-        id="orange"
-        className="circle"
-        style={{ backgroundColor: "#f56942" }}
-        onClick={() => {
-          setSelected("orange");
+      {colors.map(e => {
+        return <div id={e.id} className='circle' style={{backgroundColor: e.color}} onClick={() => {
+          setSelected(e.id);
           props.setCard({
             category: props.cardSetUp.category,
             title: props.cardSetUp.title,
-            color: "#f56942",
+            color: e.color,
             notes: props.cardSetUp.notes
           });
-        }}
-      />
-      <div
-        id="yellow"
-        className="circle"
-        style={{ backgroundColor: "#f5f542" }}
-        onClick={() => {
-          setSelected("yellow");
-          props.setCard({
-            category: props.cardSetUp.category,
-            title: props.cardSetUp.title,
-            color: "#f5f542",
-            notes: props.cardSetUp.notes
-          });
-        }}
-      />
-      <div
-        id="green"
-        className="circle"
-        style={{ backgroundColor: "#42f56c" }}
-        onClick={() => {
-          setSelected("green");
-          props.setCard({
-            category: props.cardSetUp.category,
-            title: props.cardSetUp.title,
-            color: "#42f56c",
-            notes: props.cardSetUp.notes
-          });
-        }}
-      />
-      <div
-        id="blue"
-        className="circle"
-        style={{ backgroundColor: "#428df5" }}
-        onClick={() => {
-          setSelected("blue");
-          props.setCard({
-            category: props.cardSetUp.category,
-            title: props.cardSetUp.title,
-            color: "#428df5",
-            notes: props.cardSetUp.notes
-          });
-        }}
-      />
-      <div
-        id="purple"
-        className="circle"
-        style={{ backgroundColor: "#e042f5" }}
-        onClick={() => {
-          setSelected("purple");
-          props.setCard({
-            category: props.cardSetUp.category,
-            title: props.cardSetUp.title,
-            color: "#e042f5",
-            notes: props.cardSetUp.notes
-          });
-        }}
-      />
-      <div
-        id="red"
-        className="circle"
-        style={{ backgroundColor: "#f54266" }}
-        onClick={() => {
-          setSelected("red");
-          props.setCard({
-            category: props.cardSetUp.category,
-            title: props.cardSetUp.title,
-            color: "#f54266",
-            notes: props.cardSetUp.notes
-          });
-        }}
-      />
+        }}/>
+      })}
+      
     </section>
   );
 };

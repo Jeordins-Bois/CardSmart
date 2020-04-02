@@ -44,7 +44,7 @@ const FileUpload = props => {
   );
 
   return (
-    <div>
+    <div style={{ marginTop: "3vh" }}>
       {showDropdown ? (
         <div style={{ display: "flex" }}>{inputComponent}</div>
       ) : (

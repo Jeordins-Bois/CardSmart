@@ -22,6 +22,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import EmptyHeader from "./EmptyHeader";
 import "./Header.css";
 import SavedDecks from "./SavedDecks";
 
@@ -76,11 +77,12 @@ const useStyles = makeStyles(theme => ({
     color: "#f5f5f5"
   },
   spaceHolder: {
-    backgroundColor: "#f5f5f5",
     color: theme.palette.primary[700],
-    margin: "100% 0",
     padding: "5px",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    height: "18vh",
+    width: "80%",
+    border: "solid black .5px"
   }
 }));
 //End of materialui stuff
@@ -116,42 +118,55 @@ const Header = props => {
     setOpen(!open);
   };
   //! This was working until I started doing user profile stuff and it broke so i commented it out
-  // const getBreadcrumbContent = () => {
-  //   const path = props.location.pathname.split("/");
+  const getBreadcrumbContent = () => {
+    const path = props.location.pathname.split("/");
+    console.log(path);
 
-  //   if (path[1] === "user") {
-  //     return (
-  //       <Typography style={{ fontSize: "4vw" }}>
-  //         <Link style={{ color: "#f5f5f5" }} to={`/user`}>
-  //           Profile
-  //         </Link>
-  //       </Typography>
-  //     );
-  //   } else {
-  //     // const path = [1, 2, 3];
-  //     path.splice(0, 2);
+    if (path[1] === "saved") {
+      return (
+        <Typography
+          style={{
+            fontSize: "4vw",
+            color: "#f5f5f5",
+            textDecoration: "underline"
+          }}
+        >
+          Saved Deck
+        </Typography>
+      );
+    } else if (path[1] === "user") {
+      return (
+        <Typography style={{ fontSize: "4vw" }}>
+          <Link style={{ color: "#f5f5f5" }} to={`/user`}>
+            Profile
+          </Link>
+        </Typography>
+      );
+    } else {
+      // const path = [1, 2, 3];
+      path.splice(0, 2);
 
-  //     const strings = [];
-  //     path.reduce((a, e) => {
-  //       const string = a + "/" + e;
-  //       strings.push(string);
-  //       // console.log(string);
-  //       return string;
-  //     }, "category");
-  //     return strings.map((e, i) => {
-  //       // console.log(e);
-  //       return (
-  //         <Typography key={`breadcrumbkey${i}`} style={{ fontSize: "4vw" }}>
-  //           <Link style={{ color: "#f5f5f5" }} to={`/${e}`}>
-  //             {i === 0
-  //               ? props.ducks.headerReducer.category
-  //               : props.ducks.headerReducer.topic}
-  //           </Link>
-  //         </Typography>
-  //       );
-  //     });
-  //   }
-  // };
+      const strings = [];
+      path.reduce((a, e) => {
+        const string = a + "/" + e;
+        strings.push(string);
+        // console.log(string);
+        return string;
+      }, "category");
+      return strings.map((e, i) => {
+        // console.log(e);
+        return (
+          <Typography key={`breadcrumbkey${i}`} style={{ fontSize: "4vw" }}>
+            <Link style={{ color: "#f5f5f5" }} to={`/${e}`}>
+              {i === 0
+                ? props.ducks.headerReducer.category
+                : props.ducks.headerReducer.topic}
+            </Link>
+          </Typography>
+        );
+      });
+    }
+  };
   //? Ternary to show the user logged in or the guest
   // if (props.ducks.userReducer.loggedIn) {
   //   return <h1>{props.ducks.userReducer.user.username}</h1>;
@@ -213,7 +228,7 @@ const Header = props => {
           variant="dense"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          {/* <Breadcrumbs
+          <Breadcrumbs
             classes={{ separator: classes.breadcrumbSeparator }}
             aria-label="breadcrumb"
           >
@@ -223,7 +238,7 @@ const Header = props => {
               </Link>
             </Typography>
             {getBreadcrumbContent()}
-          </Breadcrumbs> */}
+          </Breadcrumbs>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -255,11 +270,7 @@ const Header = props => {
             user={props.ducks.userReducer.user}
           />
         ) : (
-          <Paper className={classes.spaceHolder}>
-            <Typography variant="h4" align="center">
-              {"Log in or create an account to see your saved decks!"}
-            </Typography>
-          </Paper>
+          <EmptyHeader classes={classes} />
         )}
       </Drawer>
     </>
