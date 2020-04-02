@@ -90,4 +90,6 @@ const mapDispatchToProps = {
   setCategory
 };
 
+
+//! connect(function that returns redux state you will assign to props, object that contains the action functions/builders that will get assigned)
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

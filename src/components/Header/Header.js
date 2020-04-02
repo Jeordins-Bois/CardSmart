@@ -80,8 +80,8 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary[700],
     padding: "5px",
     boxSizing: "border-box",
-    height: "20vh",
-    width: "100%",
+    height: "18vh",
+    width: "80%",
     border: "solid black .5px"
   }
 }));

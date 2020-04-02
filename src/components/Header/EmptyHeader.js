@@ -4,40 +4,46 @@ import { Paper, Typography } from "@material-ui/core";
 const EmptyHeader = props => {
   const [colorCards, setColors] = React.useState([
     {
-      positionY: "-30px",
-      rotate: "3deg",
+      positionY: "-60px",
+      rotate: "8deg",
       id: "orange",
-      color: "#ff9800"
+      color: "#ff9800",
+      elevation: 0
     },
     {
-      positionY: "-25px",
-      rotate: "2.5deg",
+      positionY: "-50px",
+      rotate: "5deg",
       id: "yellow",
-      color: "#ffeb3b"
+      color: "#ffeb3b",
+      elevation: 1
+    },
+    {
+      positionY: "-40px",
+      rotate: "3deg",
+      id: "green",
+      color: "#4caf50",
+      elevation: 2
+    },
+    {
+      positionY: "-30px",
+      rotate: "2deg",
+      id: "blue",
+      color: "#2196f3",
+      elevation: 3
     },
     {
       positionY: "-20px",
-      rotate: "2deg",
-      id: "green",
-      color: "#4caf50"
-    },
-    {
-      positionY: "-15px",
-      rotate: "1.5deg",
-      id: "blue",
-      color: "#2196f3"
+      rotate: "1deg",
+      id: "purple",
+      color: "#9c27b0",
+      elevation: 4
     },
     {
       positionY: "-10px",
       rotate: "1deg",
-      id: "purple",
-      color: "#9c27b0"
-    },
-    {
-      positionY: "-5px",
-      rotate: ".5deg",
       id: "red",
-      color: "#f44336"
+      color: "#f44336",
+      elevation: 5
     },
     {
       positionX: "0px",
@@ -45,8 +51,9 @@ const EmptyHeader = props => {
       rotate: "0deg",
       id: "white",
       color: "white",
+      elevation: 6,
       content: (
-        <Typography variant="h4" align="center">
+        <Typography variant="h5" align="center" style={{ marginTop: "20px" }}>
           {"Log in or create an account to see your saved decks!"}
         </Typography>
       )
@@ -65,6 +72,7 @@ const EmptyHeader = props => {
       {colorCards.map(e => {
         return (
           <Paper
+            elevation={e.elevation}
             className={props.classes.spaceHolder}
             style={{
               backgroundColor: e.color,
@@ -76,11 +84,6 @@ const EmptyHeader = props => {
           </Paper>
         );
       })}
-      {/* <Paper className={props.classes.spaceHolder}>
-        <Typography variant="h4" align="center">
-          {"Log in or create an account to see your saved decks!"}
-        </Typography>
-      </Paper> */}
     </div>
   );
 };

@@ -15,7 +15,7 @@ export default (
     <Route exact path="/category/:topicId" component={Topics} />
     <Route exact path="/category/:topicId/:deckId" component={Deck} />
     <Route path="/user" component={User} />
-    <Route path="/saved/:deckId/" component={OwnedDeck} />
+    <Route path="/saved/:deckId" component={OwnedDeck} />
     {/* <Route exact path="/comprehend" component={comprehendDelete} /> */}
   </Switch>
 );

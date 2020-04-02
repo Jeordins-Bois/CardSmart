@@ -132,6 +132,7 @@ app.get("/api/cards/:deckId", cardCtrl.getOriginalCards);
 cron.schedule(
   "0 0 * * 0",
   () => {
+    const db = app.get("db");
     db.clean_up();
   },
   {
